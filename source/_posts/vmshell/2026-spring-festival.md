@@ -1,19 +1,17 @@
 ---
+title: VmShell 澳门/香港/日本/美国/英国 VPS 2026春节活动
+date: 2026-02-13
+updated: 
 categories:
+- vmshell
+tags:
 - 澳门VPS
 - 香港VPS
 - 日本VPS
 - 美国VPS
 - 英国VPS
-date: 2026-02-13
-title: VmShell 澳门/香港/日本/美国/英国 VPS 2026春节活动
-updated: 
-tags:
-- vmshell
 copyright: false
 ---
-
-# VmShell 澳门/香港/日本/美国/英国 VPS 2026春节活动
 
 ### 入门级:香港.CMIN2.HK-Classic(无赠送)
    数据中心: 香港 CMIN2 搭配 IP 归属：**美国/南非随机**
