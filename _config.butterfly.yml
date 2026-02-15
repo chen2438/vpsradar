@@ -18,13 +18,13 @@ nav:
   fixed: false
 
 menu:
-  # 首页: / || fas fa-home
+  首页: / || fas fa-home
   # Tags: /tags/ || fas fa-tags
-  # Categories: /categories/ || fas fa-folder-open
-  香港VPS: /categories/香港VPS/ || fas fa-server
-  日本VPS: /categories/日本VPS/ || fas fa-server
-  美国VPS: /categories/美国VPS/ || fas fa-server
-  英国VPS: /categories/英国VPS/ || fas fa-server
+  VPS商家: /categories/ || fas fa-server
+  🇭🇰 香港VPS: /tags/香港VPS/
+  🇯🇵 日本VPS: /tags/日本VPS/
+  🇺🇸 美国VPS: /tags/美国VPS/
+  🇬🇧 英国VPS: /tags/英国VPS/
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
@@ -117,9 +117,10 @@ error_img:
 
 # A simple 404 page
 error_404:
-  enable: false
+  enable: true
   subtitle: 'Page Not Found'
-  background: /img/error-page.png
+  # background: /img/error-page.png
+  background: https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png
 
 post_meta:
   # Home Page
@@ -188,7 +189,7 @@ index_layout: 3
 # 3: auto_excerpt (default)
 # false: do not show the article introduction
 index_post_content:
-  method: 3
+  method: 2
   # If you set method to 2 or 3, the length need to config
   length: 500
 
@@ -783,8 +784,8 @@ site_verification:
 # The user interface setting of category and tag page
 # Choose: index - same as Homepage UI / default - same as archives UI
 # leave it empty or index
-category_ui:
-tag_ui:
+category_ui: index
+tag_ui: index
 
 # Rounded corners for UI elements
 rounded_corners_ui: true
