@@ -25,6 +25,7 @@ menu:
   🇯🇵 日本VPS: /tags/日本VPS/
   🇺🇸 美国VPS: /tags/美国VPS/
   🇬🇧 英国VPS: /tags/英国VPS/
+  IEPL/IPLC专线: /tags/IEPL-IPLC专线/ || fas fa-bolt
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
@@ -62,7 +63,7 @@ social:
 favicon: /img/favicon.png
 
 avatar:
-  img: /img/butterfly-icon.png
+  img: /img/favicon.png
   effect: false
 
 # Disable all banner images
