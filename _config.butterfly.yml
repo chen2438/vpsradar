@@ -21,6 +21,7 @@ menu:
   首页: / || fas fa-home
   # Tags: /tags/ || fas fa-tags
   VPS商家: /categories/ || fas fa-server
+  🇨🇳 国内VPS: /tags/国内VPS/
   🇭🇰 香港VPS: /tags/香港VPS/
   🇯🇵 日本VPS: /tags/日本VPS/
   🇺🇸 美国VPS: /tags/美国VPS/
