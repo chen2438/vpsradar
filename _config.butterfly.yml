@@ -20,7 +20,7 @@ nav:
 menu:
   首页: / || fas fa-home
   # Tags: /tags/ || fas fa-tags
-  VPS商家: /categories/ || fas fa-server
+  VPS商家: /categories/ || fas fa-store
   🇨🇳 中国大陆: /tags/国内VPS/
   🇭🇰 香港: /tags/香港VPS/
   🇲🇴 澳门: /tags/澳门VPS/
@@ -29,6 +29,9 @@ menu:
   🇺🇸 美国: /tags/美国VPS/
   🇬🇧 英国: /tags/英国VPS/
   🇩🇪 德国: /tags/德国VPS/
+  🇳🇱 荷兰: /tags/荷兰VPS/
+  🇲🇩 摩尔多瓦: /tags/摩尔多瓦VPS/
+  独服: /tags/独服/ || fas fa-server
   IEPL/IPLC专线: /tags/IEPL-IPLC专线/ || fas fa-bolt
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
@@ -301,13 +304,13 @@ aside:
     enable: true
     description:
     button:
-      enable: true
+      enable: false
       icon: fab fa-github
       text: Follow Me
       link: https://github.com/xxxxxx
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: Welcome!
   card_recent_post:
     enable: true
     # If set 0 will show all
