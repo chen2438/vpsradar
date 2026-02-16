@@ -4,6 +4,7 @@ date: 2026-02-15
 updated: 
 categories:
 - mkcloud
+cover: /img/mkcloud.png
 tags:
 - IEPL/IPLC专线
 description: 

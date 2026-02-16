@@ -4,6 +4,7 @@ date: 2026-02-13
 updated: 
 categories:
 - akilecloud
+cover: /img/akilecloud.png
 tags:
 - 美国VPS
 - 澳门VPS

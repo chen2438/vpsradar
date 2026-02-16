@@ -4,6 +4,7 @@ date: 2026-02-15
 updated: 
 categories:
 - qbitcloud
+cover: /img/qbitcloud.png
 tags:
 - 德国VPS
 description: 

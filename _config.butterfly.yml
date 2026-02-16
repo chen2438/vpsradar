@@ -23,6 +23,7 @@ menu:
   VPS商家: /categories/ || fas fa-server
   🇨🇳 中国大陆: /tags/国内VPS/
   🇭🇰 香港: /tags/香港VPS/
+  🇲🇴 澳门: /tags/澳门VPS/
   🇸🇬 新加坡: /tags/新加坡VPS/
   🇯🇵 日本: /tags/日本VPS/
   🇺🇸 美国: /tags/美国VPS/
@@ -111,8 +112,11 @@ cover:
   aside_enable: true
   archives_enable: true
   # When cover is not set, the default cover is displayed
+  suffix: 1
+  # 在链接后面加入后缀?spm={随机数}
+  # 0是不使用后缀; 1是?加随机数; 2是&加随机数
   default_cover:
-    # - xxx.jpg
+    - https://www.loliapi.com/acg/
 
 # Replace Broken Images
 error_img:

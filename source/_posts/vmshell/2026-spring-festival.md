@@ -4,6 +4,7 @@ date: 2026-02-13
 updated: 
 categories:
 - vmshell
+cover: /img/vmshell.png
 tags:
 - 澳门VPS
 - 香港VPS
