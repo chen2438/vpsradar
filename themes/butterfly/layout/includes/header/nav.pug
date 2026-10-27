@@ -1,16 +1,19 @@
 nav#nav
   span#blog-info
-    a.nav-site-title(href=url_for('/'))
+    a.nav-site-title(href=url_for(page.lang === 'en' ? '/en/' : '/'))
       if theme.nav.logo
         img.site-icon(src=url_for(theme.nav.logo) alt='Logo')
       if theme.nav.display_title
         span.site-name=config.title
     if globalPageType === 'post' && theme.nav.display_post_title
-      a.nav-page-title(href=url_for('/'))
+      a.nav-page-title(href=url_for(page.lang === 'en' ? '/en/' : '/'))
         span.site-name=(page.title || config.title)
         span.site-name
           i.fa-solid.fa-circle-arrow-left
           span= '  ' + _p('post.back_to_home')
+
+  - const languages = language_links()
+  a#language-switcher.site-page(href=languages.other hreflang=page.lang === 'en' ? 'zh-CN' : 'en' lang=page.lang === 'en' ? 'zh-CN' : 'en' aria-label=page.lang === 'en' ? '切换到中文' : 'Switch to English' style='margin-left:auto;margin-right:16px;white-space:nowrap')= page.lang === 'en' ? '中文' : 'English'
 
   #menus
     if theme.search.use

@@ -6,7 +6,7 @@
 - pageType = page.type ? pageType + ' type-' + page.type : pageType
 
 doctype html
-html(lang=config.language data-theme=theme.display_mode class=htmlClassHideAside)
+html(lang=page.lang data-theme=theme.display_mode class=htmlClassHideAside)
   head
     include ./head.pug
   body

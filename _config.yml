@@ -11,7 +11,7 @@ keywords: >
   VPS benchmarks, server scripts, Linux VPS,
   cloud server promotions, KVM VPS, OpenVZ VPS
 author: VPS Radar
-language: en
+language: zh-CN
 timezone: Asia/Singapore
 
 # URL
@@ -106,3 +106,9 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# English-only site metadata; root/Chinese values above remain unchanged.
+english:
+  title: VPS Radar — VPS Deals Worldwide
+  subtitle: Discover the Best VPS Deals & Insights
+  description: VPS deals, server reviews and hosting promotions from around the world.
