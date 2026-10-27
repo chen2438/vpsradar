@@ -35,7 +35,13 @@ include ./head/Open_Graph.pug
 include ./head/structured_data.pug
 
 !=favicon_tag(theme.favicon || config.favicon)
-link(rel="canonical" href=urlNoIndex(null,config.pretty_urls.trailing_index,config.pretty_urls.trailing_html))
+- const alternateLanguages = language_links()
+link(rel='canonical' href=config.url + alternateLanguages.current)
+if alternateLanguages.zh
+  link(rel='alternate' hreflang='zh-CN' href=config.url + alternateLanguages.zh)
+if alternateLanguages.en
+  link(rel='alternate' hreflang='en' href=config.url + alternateLanguages.en)
+link(rel='alternate' hreflang='x-default' href=config.url + (alternateLanguages.zh || '/'))
 
 //- 預解析
 !=partial('includes/head/preconnect', {}, {cache: true})

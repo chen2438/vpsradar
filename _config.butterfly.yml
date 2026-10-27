@@ -1155,3 +1155,21 @@ CDN:
     # valine:
     # waline_css:
     # waline_js:
+
+# Language-specific navigation; Chinese menu above keeps its existing URLs.
+menu_en:
+  Home: /en/ || fas fa-home
+  VPS Providers: /en/categories/ || fas fa-store
+  Reviews: /en/tags/Reviews/ || fas fa-file-alt
+  🇨🇳: /en/tags/China-VPS/
+  🇭🇰: /en/tags/Hong-Kong-VPS/
+  🇲🇴: /en/tags/Macau-VPS/
+  🇸🇬: /en/tags/Singapore-VPS/
+  🇯🇵: /en/tags/Japan-VPS/
+  🇺🇸: /en/tags/US-VPS/
+  🇬🇧: /en/tags/UK-VPS/
+  🇩🇪: /en/tags/Germany-VPS/
+  🇳🇱: /en/tags/Netherlands-VPS/
+  🇲🇩: /en/tags/Moldova-VPS/
+  Dedicated Servers: /en/tags/Dedicated-Servers/ || fas fa-server
+  IEPL/IPLC Private Lines: /en/tags/IEPL-IPLC-Private-Lines/ || fas fa-bolt
