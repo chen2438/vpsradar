@@ -12,7 +12,8 @@ case globalPageType
 
 
 - var isSubtitle = config.subtitle ? ' - ' + config.subtitle : ''
-- var tabTitle = globalPageType === 'home' || !pageTitle ? config.title + isSubtitle : pageTitle + ' | ' + config.title
+- const seo = page_seo(globalPageType)
+- var tabTitle = seo.title
 - var pageAuthor = config.email ? config.author + ',' + config.email : config.author
 - var pageCopyright = config.copyright || config.author
 - var themeColorLight = theme.theme_color && theme.theme_color.enable && theme.theme_color.meta_theme_color_light || '#ffffff'
@@ -40,7 +41,7 @@ link(rel='apple-touch-icon' sizes='180x180' href=url_for('/img/apple-touch-icon-
 each feed in feeds
   link(rel='alternate' type='application/atom+xml' hreflang=feed[0] title=feed[2] href=url_for(feed[1]))
 - const alternateLanguages = language_links()
-link(rel='canonical' href=config.url + alternateLanguages.current)
+link(rel='canonical' href=seo.canonical)
 if alternateLanguages.zh
   link(rel='alternate' hreflang='zh-CN' href=config.url + alternateLanguages.zh)
 if alternateLanguages.en

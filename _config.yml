@@ -122,3 +122,7 @@ feed:
   content: true
   autodiscovery: false
   icon: /img/favicon-32-v2.png
+
+# Organization social profiles; emit sameAs only when populated.
+seo:
+  same_as: []

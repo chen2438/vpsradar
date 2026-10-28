@@ -23,9 +23,10 @@ archives and theme UI. Feeds and the sitemap are language aware.
    Chinese tag, add its English equivalent there and use that exact name in the
    English front matter. Hexo generates tag paths from those names (spaces become
    hyphens); existing Chinese tag paths remain unchanged.
-5. Build and check:
+5. Regenerate cards, build and check:
 
    ```sh
+   python3 tools/generate-cards.py
    npx hexo clean && npx hexo generate
    python3 tools/check-i18n.py
    # Optional comparison against a saved pre-change build:
@@ -130,8 +131,9 @@ both languages. No runtime translation service is used.
   immutable caching. HTML retains Vercel's default behavior. Assets changed in
   future releases must use a new filename/version to avoid stale caches.
 - New `v2` images provide a 32px favicon, 180px Apple icon, 128px WebP logo/avatar,
-  WebP default cover and padded 1200×630 JPEG social image. Custom vendor covers
-  keep their existing social images. Old `favicon.png` and `default.png` URLs
+  WebP default cover and padded 1200×630 JPEG social image. Post social images
+  use the per-post cards described in phase 3 below. Old `favicon.png` and
+  `default.png` URLs
   remain available as small PNG replacements. Full originals live under
   `tools/original-img/`, outside Hexo's published source directory.
 
@@ -175,3 +177,44 @@ python3 tools/indexnow.py https://vpsradar.vayki.com/sitemap.xml --dry-run
 sent in batches of up to 10,000 URLs. HTTP 200/202 means success (exit 0);
 input, network or other HTTP errors exit 1; invalid command arguments exit 2.
 The script never runs during `hexo generate` or the Vercel build.
+
+## Phase 3 page metadata and share cards
+
+Localized SEO strings live in `seo-i18n.json`; `scripts/seo.js` builds titles,
+unique descriptions, clean canonical social URLs and JSON-LD for each language.
+Home, category, tag, archive and paginated lists have their own metadata.
+Pagination keeps its own canonical and stays indexable. Both 404 pages have
+localized titles, `noindex, follow`, and links to home, latest posts and providers.
+Posts emit NewsArticle and BreadcrumbList; taxonomy pages emit BreadcrumbList.
+Both homes emit Organization and WebSite. Populate `_config.yml`'s empty
+`seo.same_as` list when official social profiles are ready; empty lists are omitted.
+
+Every post's social image is a 1200×630 JPEG of at most 120KB, with its title,
+vendor and VPS Radar brand. Cards mirror source paths under
+`source/img/cards/<vendor>/<slug>.jpg`; English filenames retain `.en` so they
+never replace Chinese cards. Missing cards fall back to `/img/og-default-v2.jpg`.
+Open Graph and Twitter use the page's title and absolute card URL; Open Graph
+includes both locales and posts' publication/modification times.
+
+Before publishing new or edited posts, regenerate and **commit the cards**:
+
+```sh
+# If Pillow is missing:
+python3 -m venv /tmp/vpsradar-cards-venv
+/tmp/vpsradar-cards-venv/bin/pip install pillow
+# Activate that venv for the commands below when needed:
+source /tmp/vpsradar-cards-venv/bin/activate
+# A system CJK font and fontconfig are required (e.g. fonts-noto-cjk).
+# Inspect available fonts with: fc-list :lang=zh file
+python3 tools/generate-cards.py
+# Optional custom font: python3 tools/generate-cards.py --font /path/to/font.ttc
+npx hexo clean && npx hexo generate
+python3 tools/check-seo.py
+python3 tools/check-i18n.py
+```
+
+The publishing preparation command `npm run prepare:publish` runs card generation,
+a clean build and both checks. Run it before committing/pushing content; Vercel
+uses the committed JPEGs without requiring Python or CJK fonts during deployment.
+If replacing an already published card, account for the existing one-year immutable
+image cache (purge the old cached URL when deploying the replacement).

@@ -6,7 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "prepare:publish": "python3 tools/generate-cards.py && hexo clean && hexo generate && python3 tools/check-seo.py && python3 tools/check-i18n.py"
   },
   "hexo": {
     "version": "8.1.1"
