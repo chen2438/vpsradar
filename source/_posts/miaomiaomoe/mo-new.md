@@ -4,7 +4,7 @@ date: 2026-02-18
 updated: 
 categories:
 - miaomiaomoe
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - 澳门VPS
 - 香港VPS

@@ -4,7 +4,7 @@ date: 2026-10-22 22:24:22
 updated: 2026-10-24 10:29:59
 categories:
 - rockcloud
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - 香港VPS
 - 公测

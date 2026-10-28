@@ -5,7 +5,7 @@ if theme.structured_data
 
       const title = page.title
       const url = page.permalink
-      const imageVal = page.cover_type === 'img' ? page.cover : theme.avatar.img
+      const imageVal = page.cover_type === 'img' && !['/img/default.png', '/img/default-cover-v2.webp'].includes(page.cover) ? page.cover : '/img/og-default-v2.jpg'
       const image = imageVal ? full_url_for(imageVal) : ''
       const datePublished = page.date.toISOString()
       const dateModified = (page.updated || page.date).toISOString()

@@ -7,7 +7,7 @@ The site uses `Asia/Singapore` for dates.
 
 Chinese is the default language and keeps its existing URLs. English lives under
 `/en/`. Each language has independent post lists, pagination, tags, categories,
-archives and theme UI. No feed/sitemap generator is currently installed.
+archives and theme UI. Feeds and the sitemap are language aware.
 
 1. Create the Chinese post at `source/_posts/<vendor>/<slug>.md` as usual.
    Do not rename an existing Chinese file or change its permalink.
@@ -43,7 +43,7 @@ categories:
 - rfchost
 tags:
 - 香港VPS
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 description: 优惠详情
 copyright: false
 ---
@@ -62,7 +62,7 @@ categories:
 - rfchost
 tags:
 - Hong Kong VPS
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 description: Deal details
 copyright: false
 ---
@@ -104,4 +104,42 @@ with `x-default` pointing to the Chinese counterpart (or Chinese home when none
 exists). No nonexistent translation is advertised to search engines.
 
 Cloudflare Web Analytics, Vercel Web Analytics and busuanzi remain enabled in
-both languages. No runtime translation service or new npm dependency is used.
+both languages. No runtime translation service is used.
+
+
+## Phase 1 technical SEO
+
+- `/sitemap.xml` is generated in `scripts/i18n.js` from real routes: Chinese
+  URLs stay unchanged and English URLs stay under `/en/`. It includes posts,
+  home, archive root and taxonomy indexes. Taxonomy detail and archive year/month
+  pages require **at least two posts in that language**. Only page 1 of each list
+  is included; pagination and thin lists remain accessible. Paired included pages advertise
+  `zh-CN`, `en` and `x-default` (Chinese) alternates. Last modification uses the
+  explicit front-matter `updated`, falling back to `date` when absent or blank,
+  or the maximum member timestamp for lists in that language. Sitemap dates
+  never use file mtime or build time. The unused stock sitemap plugin
+  was removed in favor of this generator.
+- `/atom.xml` contains Chinese posts; `/en/atom.xml` contains English posts.
+  `hexo-generator-feed` uses the same scoped collections, all posts and full HTML
+  content. Publish dates come from each post's original `date` front matter,
+  parsed in `Asia/Singapore`; update dates follow the bilingual pairing rules.
+  Both feeds are discoverable in the theme head, current language first.
+- `source/robots.txt` is copied verbatim via `skip_render` and advertises the
+  absolute sitemap URL at `https://vpsradar.vayki.com`.
+- `vercel.json` gives `/css/*`, `/js/*`, `/img/*`, and `/fonts/*` one year of
+  immutable caching. HTML retains Vercel's default behavior. Assets changed in
+  future releases must use a new filename/version to avoid stale caches.
+- New `v2` images provide a 32px favicon, 180px Apple icon, 128px WebP logo/avatar,
+  WebP default cover and padded 1200×630 JPEG social image. Custom vendor covers
+  keep their existing social images. Old `favicon.png` and `default.png` URLs
+  remain available as small PNG replacements. Full originals live under
+  `tools/original-img/`, outside Hexo's published source directory.
+
+Regenerate the images with Pillow (including WebP support), then rebuild and check:
+
+```sh
+python3 tools/optimize-images.py
+npx hexo clean && npx hexo generate
+python3 tools/check-i18n.py
+python3 tools/check-seo.py
+```

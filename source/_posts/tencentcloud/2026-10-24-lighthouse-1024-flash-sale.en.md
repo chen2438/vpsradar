@@ -4,7 +4,7 @@ date: 2026-10-24 01:40:21
 updated: 2026-10-24 11:53:38
 categories:
 - tencentcloud
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - Japan VPS
 - US VPS

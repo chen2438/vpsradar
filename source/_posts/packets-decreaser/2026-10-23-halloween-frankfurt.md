@@ -4,7 +4,7 @@ date: 2026-10-23 08:32:57
 updated: 2026-10-23 08:34:04
 categories:
 - packets-decreaser
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - 德国VPS
 - 万圣节

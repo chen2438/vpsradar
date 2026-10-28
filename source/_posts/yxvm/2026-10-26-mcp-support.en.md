@@ -4,7 +4,7 @@ date: 2026-10-26 21:38:16
 updated: 2026-10-26 21:38:16
 categories:
 - yxvm
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - News
 description: "YXVM's official channel announces MCP (Model Context Protocol) connections, allowing service management through AI assistants using natural language."

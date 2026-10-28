@@ -4,7 +4,7 @@ date: 2026-10-26 13:57:43
 updated: 2026-10-26 13:59:16
 categories:
 - hostnoc
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - 独服
 - 欧洲独服

@@ -4,7 +4,7 @@ date: 2026-10-23 10:55:29
 updated: 2026-10-23 10:55:29
 categories:
 - ovh
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - 独服
 description: OVHcloud ECO 低价独立服务器优惠码 免购置费码与年付 9 折码 主机百科频道发布
