@@ -143,3 +143,35 @@ npx hexo clean && npx hexo generate
 python3 tools/check-i18n.py
 python3 tools/check-seo.py
 ```
+
+## IndexNow
+
+[IndexNow](https://www.indexnow.org/documentation) notifies participating search
+engines when URLs are added or updated. The ownership key is in
+`source/e40d982adb11c40759f947a7a287d1e3.txt`; Hexo copies it unchanged to the
+site root via `skip_render`. This static file is excluded from the sitemap.
+
+Run the Python 3 stdlib script manually **after the deployment is live**, so
+search engines can fetch the new pages and the key file. For newly published
+posts, put one absolute URL per line in `new-urls.txt`, including both Chinese
+and English URLs as applicable:
+
+```sh
+python3 tools/indexnow.py --urls-from-file new-urls.txt --dry-run
+python3 tools/indexnow.py --urls-from-file new-urls.txt
+```
+
+Without `--urls-from-file`, the script reads every URL (zh + en) from the locally
+generated `public/sitemap.xml`. An optional positional argument accepts another
+sitemap path or URL:
+
+```sh
+python3 tools/indexnow.py --dry-run
+python3 tools/indexnow.py https://vpsradar.vayki.com/sitemap.xml --dry-run
+```
+
+`--dry-run` prints the count and first five URLs without contacting IndexNow
+(a remote sitemap still needs to be fetched). Submissions are deduplicated and
+sent in batches of up to 10,000 URLs. HTTP 200/202 means success (exit 0);
+input, network or other HTTP errors exit 1; invalid command arguments exit 2.
+The script never runs during `hexo generate` or the Vercel build.
