@@ -4,7 +4,7 @@ date: 2026-10-23 14:02:31
 updated: 2026-10-23 14:02:31
 categories:
 - termrat
-cover: /img/default.png
+cover: /img/default-cover-v2.webp
 tags:
 - 香港VPS
 - 独服

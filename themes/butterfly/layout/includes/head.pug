@@ -35,6 +35,10 @@ include ./head/Open_Graph.pug
 include ./head/structured_data.pug
 
 !=favicon_tag(theme.favicon || config.favicon)
+link(rel='apple-touch-icon' sizes='180x180' href=url_for('/img/apple-touch-icon-v2.png'))
+- const feeds = page.lang === 'en' ? [['en', '/en/atom.xml', 'VPS Radar — English'], ['zh-CN', '/atom.xml', 'VPS Radar — 中文']] : [['zh-CN', '/atom.xml', 'VPS Radar — 中文'], ['en', '/en/atom.xml', 'VPS Radar — English']]
+each feed in feeds
+  link(rel='alternate' type='application/atom+xml' hreflang=feed[0] title=feed[2] href=url_for(feed[1]))
 - const alternateLanguages = language_links()
 link(rel='canonical' href=config.url + alternateLanguages.current)
 if alternateLanguages.zh

@@ -32,6 +32,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - robots.txt
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -112,3 +113,11 @@ english:
   title: VPS Radar — VPS Deals Worldwide
   subtitle: Discover the Best VPS Deals & Insights
   description: VPS deals, server reviews and hosting promotions from around the world.
+
+# Language-scoped by scripts/i18n.js; discovery links live in the theme head.
+feed:
+  type: atom
+  limit: 0
+  content: true
+  autodiscovery: false
+  icon: /img/favicon-32-v2.png
