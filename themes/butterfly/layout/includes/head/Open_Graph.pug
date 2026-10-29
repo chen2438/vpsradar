@@ -1,18 +1,20 @@
-if theme.Open_Graph_meta.enable
-  -
-    const coverVal = page.cover_type === 'img' && !['/img/default.png', '/img/default-cover-v2.webp'].includes(page.cover) ? page.cover : '/img/og-default-v2.jpg'
-    let ogOption = Object.assign({
-      type: globalPageType === 'post' ? 'article' : 'website',
-      image: coverVal ? full_url_for(coverVal) : '',
-      twitter_image: full_url_for(coverVal),
-      twitter_card: 'summary_large_image',
-      fb_admins: theme.facebook_comments.user_id || '',
-      fb_app_id: theme.facebook_comments.app_id || '',
-    }, theme.Open_Graph_meta.option)
-  -
-  != open_graph(ogOption)
-else
-  - const description = page.description || page.content || page.title || config.description
-  if description
-    meta(name="description" content=truncate(description, 150))
-
+meta(name='description' content=seo.description)
+if page.type === '404'
+  meta(name='robots' content='noindex, follow')
+meta(property='og:title' content=seo.title)
+meta(property='og:description' content=seo.description)
+meta(property='og:url' content=seo.canonical)
+meta(property='og:site_name' content='VPS Radar')
+meta(property='og:image' content=seo.image)
+meta(property='og:image:width' content='1200')
+meta(property='og:image:height' content='630')
+meta(property='og:locale' content=seo.locale)
+meta(property='og:locale:alternate' content=seo.alternateLocale)
+meta(property='og:type' content=globalPageType === 'post' ? 'article' : 'website')
+if globalPageType === 'post'
+  meta(property='article:published_time' content=page.date.toISOString())
+  meta(property='article:modified_time' content=(page.updated || page.date).toISOString())
+meta(name='twitter:card' content='summary_large_image')
+meta(name='twitter:title' content=seo.title)
+meta(name='twitter:description' content=seo.description)
+meta(name='twitter:image' content=seo.image)

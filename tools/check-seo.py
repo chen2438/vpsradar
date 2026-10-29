@@ -121,9 +121,15 @@ class Page(HTMLParser):
     def __init__(self, text):
         super().__init__()
         self.links, self.images, self.meta = [], [], []
+        self.title, self.jsonld = '', []
+        self.in_title, self.in_json, self.json_text = False, False, ''
         self.feed(text)
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'title':
+            self.in_title = True
+        if tag == 'script' and attrs.get('type') == 'application/ld+json':
+            self.in_json, self.json_text = True, ''
         if tag == 'link':
             self.links.append(attrs)
             if attrs.get('rel') in ('icon', 'apple-touch-icon'):
@@ -137,10 +143,71 @@ class Page(HTMLParser):
             if attrs.get('property') == 'og:image' or attrs.get('name') == 'twitter:image':
                 self.images.append(attrs['content'])
 
+    def handle_data(self, data):
+        if self.in_title:
+            self.title += data
+        if self.in_json:
+            self.json_text += data
+
+    def handle_endtag(self, tag):
+        if tag == 'title':
+            self.in_title = False
+        if tag == 'script' and self.in_json:
+            value = json.loads(self.json_text)
+            self.jsonld.extend(value.get('@graph', [value]))
+            self.in_json = False
+
 count = 0
+pages = {}
+all_titles = {}
+all_descriptions = {}
 for file in PUBLIC.rglob('*.html'):
     page = Page(file.read_text())
-    english = file.relative_to(PUBLIC).as_posix().startswith('en/')
+    relative = file.relative_to(PUBLIC).as_posix()
+    pages[relative] = page
+    english = relative.startswith('en/')
+    meta = {a.get('property') or a.get('name'): a.get('content') for a in page.meta}
+    canonical = next(a['href'] for a in page.links if a.get('rel') == 'canonical')
+    assert meta['og:url'] == canonical and 'index.html' not in canonical, file
+    assert meta['og:title'] == page.title == meta['twitter:title'], file
+    assert meta['description'] == meta['og:description'] == meta['twitter:description'], file
+    assert meta['twitter:card'] == 'summary_large_image', file
+    assert meta['og:image'] == meta['twitter:image'] and meta['og:image'].startswith(ORIGIN + '/'), file
+    assert meta['og:locale'] == ('en_US' if english else 'zh_CN'), file
+    assert meta['og:locale:alternate'] == ('zh_CN' if english else 'en_US'), file
+    nodes = {node['@type']: node for node in page.jsonld}
+    assert 'BlogPosting' not in nodes, file
+    if canonical in post_urls['en' if english else 'zh-CN']:
+        assert meta['og:type'] == 'article', file
+        assert {'NewsArticle', 'BreadcrumbList'} <= nodes.keys(), file
+        article = nodes['NewsArticle']
+        assert article['mainEntityOfPage']['@id'] == canonical, file
+        assert article['publisher']['name'] == 'VPS Radar', file
+        assert local_file(article['publisher']['logo']['url']).is_file(), file
+        assert article['publisher']['sameAs'] == ['https://t.me/vps_1nfo'], file
+        assert article['datePublished'] == meta['article:published_time'], file
+        assert article['dateModified'] == meta['article:modified_time'], file
+        assert '/img/cards/' in meta['og:image'], file
+        card = local_file(meta['og:image'])
+        assert Image.open(card).size == (1200, 630) and card.stat().st_size <= 120000, file
+        crumbs = nodes['BreadcrumbList']['itemListElement']
+        assert crumbs[0]['item'] == ORIGIN + ('/en/' if english else '/'), file
+        assert crumbs[-1]['item'] == canonical, file
+    else:
+        assert meta['og:type'] == 'website', file
+    if re.search(r'(?:^|/)(categories|tags)/', relative):
+        assert 'BreadcrumbList' in nodes, file
+    if not relative.endswith('404.html'):
+        assert 'noindex' not in meta.get('robots', ''), file
+        assert page.title not in all_titles, (file, all_titles.get(page.title), page.title)
+        all_titles[page.title] = file
+        if canonical not in post_urls['en' if english else 'zh-CN']:
+            assert meta['description'] not in all_descriptions, (file, all_descriptions.get(meta['description']))
+            all_descriptions[meta['description']] = file
+    if '/page/' in '/' + relative:
+        expected_path = '/' + relative.removesuffix('index.html')
+        assert unquote(urlsplit(canonical).path) == expected_path, file
+        assert re.search(r'Page \d+|第\d+页', page.title), file
     feeds = [a for a in page.links if a.get('type') == 'application/atom+xml']
     assert [a['href'] for a in feeds] == (['/en/atom.xml', '/atom.xml'] if english else ['/atom.xml', '/en/atom.xml']), file
     assert any(a.get('rel') == 'apple-touch-icon' for a in page.links), file
@@ -166,3 +233,20 @@ for name, size, limit in [('favicon-32-v2.png', (32, 32), 20000),
 vercel = json.loads((ROOT / 'vercel.json').read_text())
 assert set(vercel) == {'headers'}
 print(f'Checked {len(urls)} sitemap URLs, 46 zh + 46 en feed entries, {count} page heads and local image references, robots, image budgets and cache configuration.')
+
+zh_home = pages['index.html']
+assert all(word in zh_home.title for word in ['VPS优惠', '优惠码', '双十一', '黑五'])
+assert not re.search(r'[\u4e00-\u9fff]', pages['en/index.html'].title)
+for relative in ['index.html', 'en/index.html']:
+    nodes = {node['@type']: node for node in pages[relative].jsonld}
+    assert {'Organization', 'WebSite'} <= nodes.keys(), relative
+    assert nodes['Organization']['sameAs'] == ['https://t.me/vps_1nfo'], relative
+for relative in ['404.html', 'en/404.html']:
+    page = pages[relative]
+    assert page.title == ('Page Not Found | VPS Radar' if relative.startswith('en/') else '页面未找到 | VPS Radar')
+    assert any(a.get('name') == 'robots' and 'noindex' in a['content'] for a in page.meta)
+    html = (PUBLIC / relative).read_text()
+    root = '/en/' if relative.startswith('en/') else '/'
+    for target in [root, root + 'archives/', root + 'categories/']:
+        assert f'href="{target}"' in html, (relative, target)
+print('Checked localized metadata, unique titles/descriptions, self-canonical pagination, social cards, JSON-LD and bilingual 404 pages.')
