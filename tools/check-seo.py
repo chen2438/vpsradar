@@ -184,7 +184,7 @@ for file in PUBLIC.rglob('*.html'):
         assert article['mainEntityOfPage']['@id'] == canonical, file
         assert article['publisher']['name'] == 'VPS Radar', file
         assert local_file(article['publisher']['logo']['url']).is_file(), file
-        assert 'sameAs' not in article['publisher'], file
+        assert article['publisher']['sameAs'] == ['https://t.me/vps_1nfo'], file
         assert article['datePublished'] == meta['article:published_time'], file
         assert article['dateModified'] == meta['article:modified_time'], file
         assert '/img/cards/' in meta['og:image'], file
@@ -240,7 +240,7 @@ assert not re.search(r'[\u4e00-\u9fff]', pages['en/index.html'].title)
 for relative in ['index.html', 'en/index.html']:
     nodes = {node['@type']: node for node in pages[relative].jsonld}
     assert {'Organization', 'WebSite'} <= nodes.keys(), relative
-    assert 'sameAs' not in nodes['Organization']
+    assert nodes['Organization']['sameAs'] == ['https://t.me/vps_1nfo'], relative
 for relative in ['404.html', 'en/404.html']:
     page = pages[relative]
     assert page.title == ('Page Not Found | VPS Radar' if relative.startswith('en/') else '页面未找到 | VPS Radar')
