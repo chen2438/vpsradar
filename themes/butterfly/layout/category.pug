@@ -7,6 +7,7 @@ block content
   else
     include ./includes/mixins/article-sort.pug
     #category
+      != vendor_header()
       .article-sort-title= _p('page.category') + ' - ' + page.category
       +articleSort(page.posts)
       include includes/pagination.pug

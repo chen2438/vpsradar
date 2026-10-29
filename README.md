@@ -94,9 +94,7 @@ that post's timestamp, including Hexo's file-mtime fallback for blank values.
 The root metadata stays in `_config.yml`; English overrides are under `english`.
 `_config.butterfly.yml` contains the existing Chinese `menu` and a separate
 `menu_en`. Butterfly's bundled `zh-CN` and `en` dictionaries provide UI text;
-the script also translates the configured out-of-date notice. Search remains
-at its existing disabled setting; its theme UI uses the current language if
-configured later (a search index would also need language scoping).
+the script also translates the configured out-of-date notice. Local search uses separate language indexes, fetched only on first search focus.
 
 The small Butterfly template changes add the always-visible switcher, use the
 page language on `<html>`, keep logo/home links in the current language and emit
@@ -112,9 +110,9 @@ both languages. No runtime translation service is used.
 
 - `/sitemap.xml` is generated in `scripts/i18n.js` from real routes: Chinese
   URLs stay unchanged and English URLs stay under `/en/`. It includes posts,
-  home, archive root and taxonomy indexes. Taxonomy detail and archive year/month
-  pages require **at least two posts in that language**. Only page 1 of each list
-  is included; pagination and thin lists remain accessible. Paired included pages advertise
+  home, vendor and taxonomy indexes. Taxonomy detail pages require **at least three
+  posts in that language**. Archives and pagination are excluded and emit
+  `noindex,follow`, as do thinner taxonomy pages. Paired included pages advertise
   `zh-CN`, `en` and `x-default` (Chinese) alternates. Last modification uses the
   explicit front-matter `updated`, falling back to `date` when absent or blank,
   or the maximum member timestamp for lists in that language. Sitemap dates
@@ -183,7 +181,7 @@ The script never runs during `hexo generate` or the Vercel build.
 Localized SEO strings live in `seo-i18n.json`; `scripts/seo.js` builds titles,
 unique descriptions, clean canonical social URLs and JSON-LD for each language.
 Home, category, tag, archive and paginated lists have their own metadata.
-Pagination keeps its own canonical and stays indexable. Both 404 pages have
+Pagination keeps its own canonical and emits `noindex,follow`. Both 404 pages have
 localized titles, `noindex, follow`, and links to home, latest posts and providers.
 Posts emit NewsArticle and BreadcrumbList; taxonomy pages emit BreadcrumbList.
 Both homes emit Organization and WebSite. Populate `_config.yml`'s empty
@@ -218,3 +216,46 @@ a clean build and both checks. Run it before committing/pushing content; Vercel
 uses the committed JPEGs without requiring Python or CJK fonts during deployment.
 If replacing an already published card, account for the existing one-year immutable
 image cache (purge the old cached URL when deploying the replacement).
+
+
+## Publishing checklist
+
+- Use a title near 30 Chinese characters: 「商家名 + 活动 + 年份 + 优惠码/折扣」.
+  English pattern: "Vendor + offer + year + coupon/discount". Include only verified details.
+- Put verified prices in `description` and/or optional `price` front matter. All
+  deal fields are optional: `price` (text), `location`, `network`, `expires`
+  (`YYYY-MM-DD`, quoted recommended), `coupon`, and `buy_url`. Omit unknown values;
+  never infer an expiry date, price, coupon or vendor fact. See `scaffolds/post.md`.
+- Publish Chinese `<slug>.md` and English `<slug>.en.md` together; set `lang: en`
+  on English and follow the translation key, category and date rules above.
+- Run `python3 tools/generate-cards.py`, commit the generated cards, then run
+  `npx hexo clean && npx hexo generate`, `python3 tools/check-seo.py` and
+  `python3 tools/check-i18n.py` before pushing.
+- After deployment is live, run `python3 tools/indexnow.py` (or submit selected
+  new URLs using `--urls-from-file` as described above).
+
+## Phase 4 content templates
+
+Optional deal fields produce a localized summary above the post. Missing fields
+are omitted; posts without them have no card. External vendor buttons carry
+`sponsored nofollow noopener` and open in a new tab. Only HTTP(S) links are allowed.
+
+`expires` is valid through the specified calendar day in the configured site
+timezone (`Asia/Singapore`). Earlier dates show a badge on cards/lists and a
+notice above the post. Vercel rebuilds only on push: a small inline script also
+checks these dates when a visitor loads the page, so an older deployment still
+shows newly expired offers. This uses the visitor's clock in the site timezone.
+Invalid dates are ignored. Expiry is not added to JSON-LD.
+
+Categories serve as vendor collections with counts and latest deals. Optional
+verified introductions and official links go in `source/_data/vendors.yml`, keyed
+by exact category name (`website`, `intro_zh`, `intro_en`). The file ships with only
+comments. `/vendors/` and `/en/vendors/` list vendors and their latest post dates.
+Each post links to up to five latest other deals in its vendor categories, within
+its own language. No matching deals means the section has no links.
+
+Search uses native browser APIs and a custom Hexo generator, requiring no new
+package. `/search-v4.json` and `/en/search-v4.json` contain only titles,
+descriptions and internal URLs; article bodies are excluded. The index loads on
+first focus, is reused for subsequent queries and returns at most 20 results.
+Versioned CSS and JavaScript respect the site's immutable asset cache policy.

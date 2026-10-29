@@ -93,27 +93,25 @@ for lang, path in [('zh-CN', 'atom.xml'), ('en', 'en/atom.xml')]:
     assert len(post_urls[lang]) == 46
     root = ORIGIN + ('/en/' if lang == 'en' else '/')
     latest = max(updated for date, updated in members.values())
-    for suffix in ['', 'tags/', 'categories/', 'archives/']:
+    for suffix in ['', 'tags/', 'categories/', 'vendors/']:
         expected_lastmods[root + suffix] = latest
     archives = {}
     for date, updated in members.values():
         for suffix in [date.strftime('%Y/'), date.strftime('%Y/%m/')]:
             archives.setdefault(root + 'archives/' + suffix, []).append(updated)
     for archive, updates_in_archive in archives.items():
-        assert (archive in urls) == (len(updates_in_archive) >= 2), archive
-        if len(updates_in_archive) >= 2:
-            expected_lastmods[archive] = max(updates_in_archive)
+        assert archive not in urls, archive
 
 for term, count in term_counts.items():
-    assert (term in urls) == (count >= 2), (term, count)
-    if count < 2:
+    assert (term in urls) == (count >= 3), (term, count)
+    if count < 3:
         expected_lastmods.pop(term)
 assert urls.keys() == expected_lastmods.keys(), (urls.keys() - expected_lastmods.keys(), expected_lastmods.keys() - urls.keys())
 for loc, record in urls.items():
     assert timestamp(record.findtext('s:lastmod', namespaces=NS)) == expected_lastmods[loc], loc
 for lang, posts in post_urls.items():
     root = ORIGIN + ('/en/' if lang == 'en' else '/')
-    for path in ['', 'tags/', 'categories/', 'archives/']:
+    for path in ['', 'tags/', 'categories/', 'vendors/']:
         assert root + path in urls, root + path
     assert len(posts & urls.keys()) == 46
 
@@ -198,7 +196,11 @@ for file in PUBLIC.rglob('*.html'):
     if re.search(r'(?:^|/)(categories|tags)/', relative):
         assert 'BreadcrumbList' in nodes, file
     if not relative.endswith('404.html'):
-        assert 'noindex' not in meta.get('robots', ''), file
+        taxonomy = {unquote(k): v for k, v in term_counts.items()}.get(unquote(canonical))
+        should_noindex = (taxonomy is not None and taxonomy < 3) or bool(re.search(r'(?:^|/)(?:archives/|page/\d+/)', relative))
+        assert ('noindex' in meta.get('robots', '')) == should_noindex, file
+        if should_noindex:
+            assert meta['robots'] == 'noindex,follow' and canonical not in urls, file
         assert page.title not in all_titles, (file, all_titles.get(page.title), page.title)
         all_titles[page.title] = file
         if canonical not in post_urls['en' if english else 'zh-CN']:
@@ -250,3 +252,7 @@ for relative in ['404.html', 'en/404.html']:
     for target in [root, root + 'archives/', root + 'categories/']:
         assert f'href="{target}"' in html, (relative, target)
 print('Checked localized metadata, unique titles/descriptions, self-canonical pagination, social cards, JSON-LD and bilingual 404 pages.')
+
+# Render actual templates with synthetic front matter in a disposable site.
+import subprocess
+subprocess.run(['node', str(ROOT / 'tools/check-deals.cjs')], cwd=ROOT, check=True)

@@ -20,7 +20,7 @@ nav:
 menu:
   首页: / || fas fa-home
   # Tags: /tags/ || fas fa-tags
-  VPS商家: /categories/ || fas fa-store
+  商家: /vendors/ || fas fa-store
   评测: /tags/评测/ || fas fa-file-alt
   🇨🇳: /tags/国内VPS/
   🇭🇰: /tags/香港VPS/
@@ -1081,6 +1081,7 @@ inject:
     - <script defer src="/_vercel/insights/script.js"></script>
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
+    - <script defer src="/js/deals-v4.js"></script>
     # - <script src="xxxx"></script>
 
 # CDN Settings
@@ -1159,7 +1160,7 @@ CDN:
 # Language-specific navigation; Chinese menu above keeps its existing URLs.
 menu_en:
   Home: /en/ || fas fa-home
-  VPS Providers: /en/categories/ || fas fa-store
+  Vendors: /en/vendors/ || fas fa-store
   Reviews: /en/tags/Reviews/ || fas fa-file-alt
   🇨🇳: /en/tags/China-VPS/
   🇭🇰: /en/tags/Hong-Kong-VPS/
