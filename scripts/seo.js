@@ -53,5 +53,7 @@ hexo.extend.helper.register('page_seo', function (type) {
     crumbs.push({ name: title, item: canonical });
   }
   if (crumbs.length > 1) structured.push({ '@type': 'BreadcrumbList', itemListElement: crumbs.map((crumb, i) => ({ '@type': 'ListItem', position: i + 1, ...crumb })) });
-  return { title, description, canonical, image, locale: en ? 'en_US' : 'zh_CN', alternateLocale: en ? 'zh_CN' : 'en_US', t, root, json: structured.length ? safeJson({ '@context': 'https://schema.org', '@graph': structured }) : null };
+  const term = type === 'category' ? this.site.categories.toArray().find(t => t.name === page.category) : type === 'tag' ? this.site.tags.toArray().find(t => t.name === page.tag) : null;
+  const noindex = type === 'archive' || Number(page.current) > 1 || (term && term.length < 3) || page.noindex === true || page.indexing === false;
+  return { noindex, title, description, canonical, image, locale: en ? 'en_US' : 'zh_CN', alternateLocale: en ? 'zh_CN' : 'en_US', t, root, json: structured.length ? safeJson({ '@context': 'https://schema.org', '@graph': structured }) : null };
 });

@@ -124,3 +124,27 @@ if len(sys.argv) > 1:
         assert post_links(old_page) == post_links(new_page), ('Chinese post list changed', old)
     print(f'Preserved all {sum(p.is_file() for p in baseline.rglob("*"))} baseline files.')
 print(f'Checked {len(pages)} HTML pages and {paired} translated posts: routes, links, languages, SEO, analytics, dates, URLs and benchmark data passed.')
+
+import json
+import xml.etree.ElementTree as ET
+sitemap_urls = {node.text for node in ET.parse(PUBLIC / 'sitemap.xml').iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc')}
+for prefix, language in [('', 'zh-CN'), ('en/', 'en')]:
+    vendor_path = prefix + 'vendors/index.html'
+    assert pages[vendor_path].lang == language
+    assert ORIGIN + '/' + prefix + 'vendors/' in sitemap_urls
+    rows = json.loads((PUBLIC / prefix / 'search-v4.json').read_text())
+    assert len(rows) == len([p for p in (ROOT / 'source/_posts').rglob('*.md') if p.name.endswith('.en.md') == bool(prefix)])
+    assert all(row['url'].startswith('/en/') == bool(prefix) and file_for(row['url']).is_file() for row in rows)
+    assert all(set(row) == {'title', 'description', 'url'} for row in rows)
+for original in originals:
+    rel = original.relative_to(ROOT / 'source/_posts').with_suffix('').as_posix()
+    for prefix in ['', 'en/']:
+        html = (PUBLIC / prefix / rel / 'index.html').read_text()
+        assert 'class="vendor-related"' in html
+        assert 'More deals from this vendor' in html if prefix else '同商家其他优惠' in html
+js = (PUBLIC / 'js/deals-v4.js').read_text()
+assert "addEventListener('focus', search)" in js and 'fetch(input.dataset.index)' in js
+assert 'preload' not in js
+assert (PUBLIC / 'js/deals-v4.js').stat().st_size < 2500
+assert (PUBLIC / 'css/deals-v4.css').stat().st_size < 2500
+print('Checked bilingual vendors, related deals, separate search indexes and lazy-loading asset budgets.')

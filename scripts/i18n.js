@@ -206,17 +206,14 @@ hexo.extend.filter.register('after_generate', () => {
     for (const route of routes) {
       if (route.startsWith('en/') !== (lang === 'en')) continue;
       const path = normalized(route).slice(root.length);
-      if (/^(?:|archives\/|tags\/|categories\/)$/.test(path) || /^archives\/\d{4}\/(?:\d{2}\/)?$/.test(path)) {
-        const archive = path.match(/^archives\/(\d{4})(?:\/(\d{2}))?\/$/);
-        const members = archive ? posts.filter(p => p.date.format('YYYY') === archive[1] &&
-          (!archive[2] || p.date.format('MM') === archive[2])) : posts;
-        if (!archive || members.length >= 2) add(route, members);
+      if (/^(?:|tags\/|categories\/|vendors\/)$/.test(path)) {
+        add(route, posts);
       }
     }
     for (const type of ['tags', 'categories']) {
       for (const term of site[type].toArray()) {
         const members = term.posts.toArray().filter(indexable);
-        if (members.length < 2) continue;
+        if (members.length < 3) continue;
         add(term.path, members);
       }
     }

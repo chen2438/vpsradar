@@ -5,6 +5,7 @@ block content
     if top_img === false
       include includes/header/post-info.pug
 
+    != deal_summary(page)
     article#article-container.container.post-content
       if theme.noticeOutdate.enable && page.noticeOutdate !== false
         include includes/post/outdate-notice.pug
@@ -27,8 +28,7 @@ block content
 
     if theme.post_pagination
       include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
+    != vendor_related(page)
 
     if page.comments !== false && theme.comments.use
       - var commentsJsLoad = true

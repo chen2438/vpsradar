@@ -2,6 +2,8 @@ mixin indexPostUI()
   - const indexLayout = theme.index_layout
   - const masonryLayoutClass = [6, 7].includes(indexLayout) ? 'masonry' : ''
   #recent-posts.recent-posts.nc(class=masonryLayoutClass)
+    if globalPageType === 'category'
+      != vendor_header()
     .recent-post-items
       each article, index in page.posts.data
         .recent-post-item
@@ -23,6 +25,7 @@ mixin indexPostUI()
               if globalPageType === 'home' && (article.top || article.sticky > 0)
                 i.fas.fa-thumbtack.sticky
               = title
+            != expiry_badge(article)
             .article-meta-wrap
               if theme.post_meta.page.date_type
                 span.post-meta-date
