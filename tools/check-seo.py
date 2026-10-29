@@ -13,6 +13,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / 'public'
 ORIGIN = 'https://vpsradar.vayki.com'
+POST_COUNT = len(list((ROOT / 'source/_posts').rglob('*.en.md')))
 NS = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9',
       'h': 'http://www.w3.org/1999/xhtml', 'a': 'http://www.w3.org/2005/Atom'}
 
@@ -55,7 +56,7 @@ for lang, path in [('zh-CN', 'atom.xml'), ('en', 'en/atom.xml')]:
     assert links['alternate'] == ORIGIN + ('/en/' if lang == 'en' else '/')
     assert local_file(feed.findtext('a:icon', namespaces=NS)).is_file()
     entries = feed.findall('a:entry', NS)
-    assert len(entries) == 46, (lang, len(entries))
+    assert len(entries) == POST_COUNT, (lang, len(entries))
     post_urls[lang] = set()
     sources = [p for p in (ROOT / 'source/_posts').rglob('*.md') if p.name.endswith('.en.md') == (lang == 'en')]
     dates = {}
@@ -90,7 +91,7 @@ for lang, path in [('zh-CN', 'atom.xml'), ('en', 'en/atom.xml')]:
         content = entry.find('a:content', NS)
         assert content.attrib['type'] == 'html' and len(content.text) > 100, title
         assert len(urls[url].findall('h:link', NS)) == 3, url
-    assert len(post_urls[lang]) == 46
+    assert len(post_urls[lang]) == POST_COUNT
     root = ORIGIN + ('/en/' if lang == 'en' else '/')
     latest = max(updated for date, updated in members.values())
     for suffix in ['', 'tags/', 'categories/', 'vendors/']:
@@ -113,7 +114,7 @@ for lang, posts in post_urls.items():
     root = ORIGIN + ('/en/' if lang == 'en' else '/')
     for path in ['', 'tags/', 'categories/', 'vendors/']:
         assert root + path in urls, root + path
-    assert len(posts & urls.keys()) == 46
+    assert len(posts & urls.keys()) == POST_COUNT
 
 class Page(HTMLParser):
     def __init__(self, text):
@@ -234,7 +235,7 @@ for name, size, limit in [('favicon-32-v2.png', (32, 32), 20000),
     assert Image.open(path).size == size and path.stat().st_size <= limit, name
 vercel = json.loads((ROOT / 'vercel.json').read_text())
 assert set(vercel) == {'headers'}
-print(f'Checked {len(urls)} sitemap URLs, 46 zh + 46 en feed entries, {count} page heads and local image references, robots, image budgets and cache configuration.')
+print(f'Checked {len(urls)} sitemap URLs, {POST_COUNT} zh + {POST_COUNT} en feed entries, {count} page heads and local image references, robots, image budgets and cache configuration.')
 
 zh_home = pages['index.html']
 assert all(word in zh_home.title for word in ['VPS优惠', '优惠码', '双十一', '黑五'])
