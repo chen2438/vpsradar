@@ -4,7 +4,6 @@ date: 2026-10-23 10:55:29
 updated: 2026-10-23 10:55:29
 categories:
 - ovh
-cover: /img/default-cover-v2.webp
 tags:
 - Dedicated Servers
 description: "Budget OVHcloud ECO dedicated-server codes for a setup-fee waiver and 10% off annual billing, posted by the 主机百科 channel."

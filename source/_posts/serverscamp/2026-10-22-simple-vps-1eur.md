@@ -4,7 +4,6 @@ date: 2026-10-22 22:00:53
 updated: 2026-10-22 22:03:06
 categories:
 - serverscamp
-cover: /img/default-cover-v2.webp
 tags:
 - 罗马尼亚VPS
 - 新品

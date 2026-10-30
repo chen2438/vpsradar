@@ -4,7 +4,6 @@ date: 2026-10-29 11:11:56
 updated: 2026-10-29 11:11:56
 lang: en
 translation_key: "solidvps/2026-10-29-halloween-flash-sale"
-cover: /img/default-cover-v2.webp
 categories:
 - solidvps
 tags:

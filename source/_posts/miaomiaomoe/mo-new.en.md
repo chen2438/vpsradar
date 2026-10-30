@@ -4,7 +4,6 @@ date: 2026-02-18
 updated: 
 categories:
 - miaomiaomoe
-cover: /img/default-cover-v2.webp
 tags:
 - Macau VPS
 - Hong Kong VPS

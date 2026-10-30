@@ -4,7 +4,6 @@ date: 2026-10-27 19:58:44
 updated: 2026-10-27 19:59:07
 categories:
 - raff
-cover: /img/default-cover-v2.webp
 tags:
 - 美国VPS
 - 黑五

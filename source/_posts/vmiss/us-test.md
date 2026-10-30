@@ -4,7 +4,6 @@ date: 2026-02-17
 updated: 
 categories:
 - vmiss
-cover: /img/vmiss.png
 tags:
 - 美国VPS
 - 评测

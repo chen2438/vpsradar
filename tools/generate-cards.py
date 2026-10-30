@@ -80,7 +80,12 @@ def render(post, font):
         output = io.BytesIO()
         image.save(output, 'JPEG', quality=quality, optimize=True, progressive=True)
         if output.tell() <= LIMIT:
-            return output.getvalue()
+            thumbnail = io.BytesIO()
+            image.resize((600, 315), Image.Resampling.LANCZOS).save(
+                thumbnail, 'WEBP', quality=80, method=6)
+            if thumbnail.tell() > 30_000:
+                raise ValueError('Could not meet thumbnail budget: ' + post['slug'])
+            return output.getvalue(), thumbnail.getvalue()
     raise ValueError('Could not meet JPEG budget: ' + post['slug'])
 
 
@@ -95,12 +100,14 @@ def main():
     if len(slugs) != len(set(slugs)):
         raise SystemExit('Duplicate post file slugs; choose unique filenames before generating cards.')
     for post in entries:
-        data = render(post, font)
-        target = OUT / (post['slug'] + '.jpg')
-        target.parent.mkdir(parents=True, exist_ok=True)
-        if not target.exists() or target.read_bytes() != data:
-            target.write_bytes(data)
-    print(f'Generated {len(entries)} cards with {font} (1200x630, <=120KB each).')
+        jpeg, thumbnail = render(post, font)
+        for suffix, data in [('.jpg', jpeg), ('.webp', thumbnail)]:
+            target = OUT / (post['slug'] + suffix)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if not target.exists() or target.read_bytes() != data:
+                target.write_bytes(data)
+    print(f'Generated {len(entries)} JPEG cards (1200x630, <=120KB each) and WebP covers '
+          f'(600x315, <=30KB each) with {font}.')
 
 
 if __name__ == '__main__':

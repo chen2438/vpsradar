@@ -5,7 +5,6 @@ updated: 2026-10-28 03:08:57
 translation_key: avahosting/2026-10-28-halloween-15-off
 categories:
 - avahosting
-cover: /img/avahosting.png
 tags:
 - 万圣节
 - 独服

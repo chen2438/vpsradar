@@ -6,7 +6,6 @@ lang: en
 translation_key: alexhost/2026-10-29-halloween-15-off
 categories:
 - alexhost
-cover: /img/alexhost.png
 tags:
 - Halloween
 - Dedicated Servers

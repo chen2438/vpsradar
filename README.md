@@ -44,7 +44,6 @@ categories:
 - rfchost
 tags:
 - 香港VPS
-cover: /img/default-cover-v2.webp
 description: 优惠详情
 copyright: false
 ---
@@ -63,7 +62,6 @@ categories:
 - rfchost
 tags:
 - Hong Kong VPS
-cover: /img/default-cover-v2.webp
 description: Deal details
 copyright: false
 ---
@@ -213,9 +211,29 @@ python3 tools/check-i18n.py
 
 The publishing preparation command `npm run prepare:publish` runs card generation,
 a clean build and both checks. Run it before committing/pushing content; Vercel
-uses the committed JPEGs without requiring Python or CJK fonts during deployment.
+uses the committed JPEGs and WebP thumbnails without requiring Python or CJK
+fonts during deployment.
 If replacing an already published card, account for the existing one-year immutable
 image cache (purge the old cached URL when deploying the replacement).
+
+
+Cover payload comparison against PR #11's original head `8e849c6` (110 posts):
+
+| Images | Before (bytes) | After (bytes) |
+| --- | ---: | ---: |
+| 110 social JPEG cards | 5,423,462 | 5,423,462 |
+| 110 WebP cover thumbnails | 0 | 1,005,170 |
+| Total card assets | 5,423,462 | 6,428,632 |
+| Chinese home images | 1,300,542 | 92,812 |
+| English home images | 1,300,542 | 103,778 |
+
+Reproduce current payloads with `python3 tools/measure-home-images.py` after the
+build. Home totals count unique local `<img src>` resources, including the shared
+logo/avatar, once per cold page load (lazy loading is disabled). They exclude
+HTTP headers, metadata-only social images and error fallbacks. Chinese/English
+home image payloads drop 92.9%/92.0%; thumbnail storage adds 18.5% to card assets.
+JPEGs are unchanged. Existing image and script budgets remain unchanged; generated
+thumbnails have an additional 30 KB per-file limit (600×315 WebP).
 
 
 ## Publishing checklist
@@ -226,12 +244,17 @@ image cache (purge the old cached URL when deploying the replacement).
   deal fields are optional: `price` (text), `location`, `network`, `expires`
   (`YYYY-MM-DD`, quoted recommended), `coupon`, and `buy_url`. Omit unknown values;
   never infer an expiry date, price, coupon or vendor fact. See `scaffolds/post.md`.
-- Set `cover: /img/default-cover-v2.webp` in both posts, or use an existing local
-  vendor image under `source/`. Covers are required and must not use remote HTTP(S)
-  URLs; local `cover` and `top_img` paths must point to files under `source/`.
+- Omit `cover`: each post automatically uses its generated 600×315 WebP share-card
+  thumbnail in home, archive, sidebar, series, related and previous/next lists.
+  English filenames retain `.en`. Missing thumbnails use the JPEG card; missing
+  cards use `/img/default-cover-v2.webp`. Legacy default/vendor-logo covers are
+  also replaced automatically. Explicit custom covers must be local files under
+  `source/`; remote covers are rejected. Post banners stay off unless `top_img`
+  is explicitly set; local `top_img` paths must exist.
 - Publish Chinese `<slug>.md` and English `<slug>.en.md` together; set `lang: en`
   on English and follow the translation key, category and date rules above.
-- Run `python3 tools/generate-cards.py`, commit the generated cards, then run
+- Run `python3 tools/generate-cards.py`, commit the generated JPEG cards and WebP
+  thumbnails (social metadata stays JPEG), then run
   `npx hexo clean && npx hexo generate`, `python3 tools/check-seo.py` and
   `python3 tools/check-i18n.py` before pushing.
 - After deployment is live, run `python3 tools/indexnow.py` (or submit selected

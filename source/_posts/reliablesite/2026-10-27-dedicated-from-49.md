@@ -4,7 +4,6 @@ date: 2026-10-27 03:48:00
 updated: 2026-10-27 03:50:07
 categories:
 - reliablesite
-cover: /img/default-cover-v2.webp
 tags:
 - 独服
 - 美国VPS

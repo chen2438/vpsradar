@@ -4,7 +4,6 @@ date: 2026-10-21 09:13:55
 updated: 2026-10-21 09:13:55
 categories:
 - racknerd
-cover: /img/racknerd.png
 tags:
 - 独服
 description: RackNerd 独立服务器特价 18 款配置 每月 105 美元起 100TB 流量 1Gbps 带宽 库存很少先到先得

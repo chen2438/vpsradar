@@ -5,7 +5,6 @@ updated: 2026-10-29 02:50:29
 translation_key: alexhost/2026-10-29-halloween-15-off
 categories:
 - alexhost
-cover: /img/alexhost.png
 tags:
 - 万圣节
 - 独服

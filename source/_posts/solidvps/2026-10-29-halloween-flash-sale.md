@@ -3,7 +3,6 @@ title: "SolidVPS 万圣节闪购 2026 VPS 年付 $15 起优惠"
 date: 2026-10-29 11:11:56
 updated: 2026-10-29 11:11:56
 translation_key: "solidvps/2026-10-29-halloween-flash-sale"
-cover: /img/default-cover-v2.webp
 categories:
 - solidvps
 tags:

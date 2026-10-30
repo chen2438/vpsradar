@@ -17,9 +17,15 @@ const root = path.resolve(__dirname, '..');
     for (const lang of ['zh-CN', 'en']) {
       for (let n = 1; n <= 7; n++) {
         const suffix = lang === 'en' ? '.en' : '';
-        const content = `---\ntitle: Fixture ${n}\ndate: 2026-01-0${n}\nlang: ${lang}\ncategories: ${n < 3 ? '[[fixture-vendor], [thin-vendor]]' : '[fixture-vendor]'}\ntags: [${n < 3 ? 'thin' : 'thick'}]\n${n === 1 ? 'price: "TEST PRICE"\nlocation: "TEST LOCATION"\nnetwork: "TEST NETWORK"\nexpires: "2000-01-01"\ncoupon: "<TEST>"\nbuy_url: "https://example.com/"' : n === 2 ? 'expires: "2999-01-01"' : n === 3 ? 'expires: "2026-02-30"\nbuy_url: "javascript:alert(1)"' : ''}\n---\nFixture content.\n`;
+        const content = `---\ntitle: Fixture ${n}\ndate: 2026-01-0${n}\nlang: ${lang}\ncategories: ${n < 3 ? '[[fixture-vendor], [thin-vendor]]' : '[fixture-vendor]'}\ntags: [${n < 3 ? 'thin' : 'thick'}]\n${n === 7 ? 'cover: /img/fixture-7.png\n' : n === 6 ? 'cover: /img/default-cover-v2.webp\n' : ''}${n === 1 ? 'price: "TEST PRICE"\nlocation: "TEST LOCATION"\nnetwork: "TEST NETWORK"\nexpires: "2000-01-01"\ncoupon: "<TEST>"\nbuy_url: "https://example.com/"' : n === 2 ? 'expires: "2999-01-01"' : n === 3 ? 'expires: "2026-02-30"\nbuy_url: "javascript:alert(1)"' : ''}\n---\nFixture content.\n`;
         await fs.writeFile(path.join(dir, `source/_posts/fixture-${n}${suffix}.md`), content);
       }
+    }
+    // Exercise translated cards, legacy default/vendor covers and JPEG-only fallback.
+    await fs.mkdir(path.join(dir, 'source/img/cards'), { recursive: true });
+    for (const suffix of ['', '.en']) {
+      for (const n of [6, 7]) await fs.copyFile(path.join(root, 'source/img/og-default-v2.jpg'), path.join(dir, `source/img/cards/fixture-${n}${suffix}.jpg`));
+      await fs.copyFile(path.join(root, 'source/img/default-cover-v2.webp'), path.join(dir, `source/img/cards/fixture-7${suffix}.webp`));
     }
     hexo = new Hexo(dir, { silent: true });
     await hexo.init();
@@ -28,12 +34,16 @@ const root = path.resolve(__dirname, '..');
     const html = async route => fs.readFile(path.join(dir, 'public', route, 'index.html'), 'utf8');
     for (const prefix of ['', 'en/']) {
       const post = await html(prefix + 'fixture-1');
-      // These fixtures omit cover: verify both the default and thumbnail fallback.
+      // Home contains a vendor-logo cover with thumbnail and a default with JPEG only.
       const home = await html(prefix);
       const covers = [...home.matchAll(/<img\b[^>]*class="post-bg"[^>]*>/g)].map(m => m[0]);
       assert(covers.length > 0);
+      const suffix = prefix ? '.en' : '';
+      assert(covers[0].includes(`src="/img/cards/fixture-7${suffix}.webp"`), covers[0]);
+      assert(covers[1].includes(`src="/img/cards/fixture-6${suffix}.jpg"`), covers[1]);
+      assert(post.includes('src="/img/default-cover-v2.webp"'));
+      assert.match(post, /<header class="not-top-img"/);
       for (const cover of covers) {
-        assert(cover.includes('src="/img/default-cover-v2.webp"'), cover);
         assert(cover.includes("this.src='/img/default-cover-v2.webp'"), cover);
         assert(!/loliapi|\/img\/404\.jpg/.test(cover), cover);
       }
@@ -66,7 +76,11 @@ const root = path.resolve(__dirname, '..');
         assert.equal(elements[0].hidden, shouldHide);
       }
     }
-    console.log('Temporary bilingual build: optional cards, escaping, expiry boundaries/client rollover, list badges, related links, vendors, thin pages and search passed.');
+    // A second build must pick up card removal even when post rendering is cached.
+    await fs.rm(path.join(dir, 'source/img/cards/fixture-7.en.webp'));
+    await hexo.call('generate');
+    assert((await html('en/')).includes('src="/img/cards/fixture-7.en.jpg"'));
+    console.log('Temporary bilingual build: automatic covers, .en cards, JPEG/missing-card fallbacks, cached rebuilds, disabled banners, optional cards, escaping, expiry boundaries/client rollover, list badges, related links, vendors, thin pages and search passed.');
   } finally {
     if (hexo) await hexo.exit();
     await fs.rm(dir, { recursive: true, force: true });

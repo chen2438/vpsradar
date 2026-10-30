@@ -6,7 +6,6 @@ lang: en
 translation_key: racknerd/2026-10-28-dual-gold-6142-dedicated
 categories:
 - racknerd
-cover: /img/racknerd.png
 tags:
 - Dedicated Servers
 description: "RackNerd dedicated-server special, only one unit: dual Xeon Gold 6142, 192GB RAM, 3.84TB SSD, 100TB traffic, 10Gbps, 5 IPs. $190 monthly, or $120/month on an annual term."
