@@ -4,7 +4,6 @@ date: 2026-02-16
 updated: 
 categories:
 - avahosting
-cover: /img/avahosting.png
 tags:
 - 摩尔多瓦VPS
 - 独服

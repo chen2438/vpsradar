@@ -4,7 +4,6 @@ date: 2026-10-22 21:28:59
 updated: 2026-10-22 21:28:59
 categories:
 - skylineconnect
-cover: /img/skylineconnect.png
 tags:
 - 日本VPS
 - 独服

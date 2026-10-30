@@ -4,7 +4,6 @@ date: 2026-02-17
 updated: 
 categories:
 - alexhost
-cover: /img/alexhost.png
 tags:
 - UK VPS
 - Dedicated Servers

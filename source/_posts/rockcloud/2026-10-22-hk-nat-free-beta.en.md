@@ -4,7 +4,6 @@ date: 2026-10-22 22:24:22
 updated: 2026-10-24 10:29:59
 categories:
 - rockcloud
-cover: /img/default-cover-v2.webp
 tags:
 - Hong Kong VPS
 - Public Beta

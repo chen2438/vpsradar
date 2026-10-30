@@ -4,7 +4,6 @@ date: 2026-02-13
 updated: 
 categories:
 - vmshell
-cover: /img/vmshell.png
 tags:
 - Macau VPS
 - Hong Kong VPS

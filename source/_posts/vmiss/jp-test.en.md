@@ -4,7 +4,6 @@ date: 2026-02-18
 updated: 
 categories:
 - vmiss
-cover: /img/vmiss.png
 tags:
 - Japan VPS
 - Reviews

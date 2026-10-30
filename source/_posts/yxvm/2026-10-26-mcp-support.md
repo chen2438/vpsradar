@@ -4,7 +4,6 @@ date: 2026-10-26 21:38:16
 updated: 2026-10-26 21:38:16
 categories:
 - yxvm
-cover: /img/default-cover-v2.webp
 tags:
 - 资讯
 description: YXVM 官方频道宣布支持 MCP Model Context Protocol 连接 可通过 AI 助手用自然语言管理服务

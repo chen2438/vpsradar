@@ -4,7 +4,6 @@ date: 2026-02-16
 updated: 
 categories:
 - racknerd
-cover: /img/racknerd.png
 tags:
 - 美国VPS
 description: 

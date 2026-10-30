@@ -4,7 +4,6 @@ date: 2026-10-26 13:57:43
 updated: 2026-10-26 13:59:16
 categories:
 - hostnoc
-cover: /img/default-cover-v2.webp
 tags:
 - Dedicated Servers
 - Europe Dedicated Servers

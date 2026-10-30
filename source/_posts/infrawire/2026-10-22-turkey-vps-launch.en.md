@@ -4,7 +4,6 @@ date: 2026-10-22 23:47:28
 updated: 2026-10-22 23:49:06
 categories:
 - infrawire
-cover: /img/default-cover-v2.webp
 tags:
 - Turkey VPS
 - New Products

@@ -4,7 +4,6 @@ date: 2026-02-17
 updated: 
 categories:
 - geelinx
-cover: /img/geelinx.png
 tags:
 - 日本VPS
 - 评测

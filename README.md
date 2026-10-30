@@ -44,7 +44,6 @@ categories:
 - rfchost
 tags:
 - 香港VPS
-cover: /img/default-cover-v2.webp
 description: 优惠详情
 copyright: false
 ---
@@ -63,7 +62,6 @@ categories:
 - rfchost
 tags:
 - Hong Kong VPS
-cover: /img/default-cover-v2.webp
 description: Deal details
 copyright: false
 ---
@@ -188,7 +186,28 @@ Both homes emit Organization and WebSite. Populate `_config.yml`'s empty
 `seo.same_as` list when official social profiles are ready; empty lists are omitted.
 
 Every post's social image is a 1200×630 JPEG of at most 120KB, with its title,
-vendor and VPS Radar brand. Cards mirror source paths under
+vendor and VPS Radar brand. Vendor accents use SHA-256 of the exact category
+slug (falling back to the folder name), mapped to 16 curated vivid colors.
+The 43 current vendors have pinned colors in `source/_data/vendors.yml` to
+balance reuse (two or three vendors per color) and contrast neighboring vendor
+slugs. CentrixNodes and DediRock use clearly different hues. Manual `color: "#RRGGBB"` overrides always win. Accents fill the 20px left bar, visible radial
+glow and deal badge; badge text chooses black or white by WCAG contrast (>=4.5).
+Vendor labels use the accent, lightened when a dark override needs contrast.
+
+Badges use only optional scalar `price` and/or `coupon` front matter, never body
+text, with localized 码 / Code labels. Titles reserve badge space (two lines
+with badges, four without). Balanced wrapping keeps Latin words, coupon codes,
+prices and currency units together and avoids single final words/CJK characters
+where a legal alternative exists. Oversized tokens and excess lines are clipped
+with an ellipsis. Both language variants use the same vendor accent.
+
+Current vivid-card payloads (110 posts): JPEGs total 6,268,743 bytes, WebP
+thumbnails total 1,078,654 bytes; largest files are 84,484 and 16,820 bytes.
+Chinese/English home image payloads are 120,146 / 131,066 bytes, including the
+shared logo once. Social metadata still points to JPEG. Reproduce with
+`python3 tools/measure-home-images.py` after generating the site.
+
+Cards mirror source paths under
 `source/img/cards/<vendor>/<slug>.jpg`; English filenames retain `.en` so they
 never replace Chinese cards. Missing cards fall back to `/img/og-default-v2.jpg`.
 Open Graph and Twitter use the page's title and absolute card URL; Open Graph
@@ -213,9 +232,44 @@ python3 tools/check-i18n.py
 
 The publishing preparation command `npm run prepare:publish` runs card generation,
 a clean build and both checks. Run it before committing/pushing content; Vercel
-uses the committed JPEGs without requiring Python or CJK fonts during deployment.
+uses the committed JPEGs and WebP thumbnails without requiring Python or CJK
+fonts during deployment.
 If replacing an already published card, account for the existing one-year immutable
 image cache (purge the old cached URL when deploying the replacement).
+
+
+Cover payload comparison against PR #11's original head `8e849c6` (110 posts):
+
+| Images | Before (bytes) | After (bytes) |
+| --- | ---: | ---: |
+| 110 social JPEG cards | 5,423,462 | 5,423,462 |
+| 110 WebP cover thumbnails | 0 | 1,005,170 |
+| Total card assets | 5,423,462 | 6,428,632 |
+| Chinese home images | 1,300,542 | 92,812 |
+| English home images | 1,300,542 | 103,778 |
+
+Reproduce current payloads with `python3 tools/measure-home-images.py` after the
+build. Home totals count unique local `<img src>` resources, including the shared
+logo/avatar, once per cold page load (lazy loading is disabled). They exclude
+HTTP headers, metadata-only social images and error fallbacks. Chinese/English
+home image payloads drop 92.9%/92.0%; thumbnail storage adds 18.5% to card assets.
+The table above records the thumbnail rollout before vendor accents and deal badges.
+Current card totals are recorded below. Existing image and script budgets remain
+unchanged; generated
+thumbnails have an additional 30 KB per-file limit (600×315 WebP).
+
+
+Vendor-accent and deal-badge regeneration (110 posts; compared with branch head
+`7f9c159`, before this design update):
+
+| Images | Before (bytes) | After (bytes) |
+| --- | ---: | ---: |
+| 110 social JPEG cards | 5,423,462 | 5,499,675 |
+| 110 WebP thumbnails | 1,005,170 | 993,132 |
+| Total card assets | 6,428,632 | 6,492,807 |
+
+Largest JPEG: 75,514 bytes (120,000 limit); largest thumbnail: 14,168 bytes
+(30,000 limit). Social metadata continues to reference JPEGs.
 
 
 ## Publishing checklist
@@ -226,9 +280,17 @@ image cache (purge the old cached URL when deploying the replacement).
   deal fields are optional: `price` (text), `location`, `network`, `expires`
   (`YYYY-MM-DD`, quoted recommended), `coupon`, and `buy_url`. Omit unknown values;
   never infer an expiry date, price, coupon or vendor fact. See `scaffolds/post.md`.
+- Omit `cover`: each post automatically uses its generated 600×315 WebP share-card
+  thumbnail in home, archive, sidebar, series, related and previous/next lists.
+  English filenames retain `.en`. Missing thumbnails use the JPEG card; missing
+  cards use `/img/default-cover-v2.webp`. Legacy default/vendor-logo covers are
+  also replaced automatically. Explicit custom covers must be local files under
+  `source/`; remote covers are rejected. Post banners stay off unless `top_img`
+  is explicitly set; local `top_img` paths must exist.
 - Publish Chinese `<slug>.md` and English `<slug>.en.md` together; set `lang: en`
   on English and follow the translation key, category and date rules above.
-- Run `python3 tools/generate-cards.py`, commit the generated cards, then run
+- Run `python3 tools/generate-cards.py`, commit the generated JPEG cards and WebP
+  thumbnails (social metadata stays JPEG), then run
   `npx hexo clean && npx hexo generate`, `python3 tools/check-seo.py` and
   `python3 tools/check-i18n.py` before pushing.
 - After deployment is live, run `python3 tools/indexnow.py` (or submit selected
@@ -249,7 +311,8 @@ Invalid dates are ignored. Expiry is not added to JSON-LD.
 
 Categories serve as vendor collections with counts and latest deals. Optional
 verified introductions and official links go in `source/_data/vendors.yml`, keyed
-by exact category name (`website`, `intro_zh`, `intro_en`). The file ships with only
+by exact category name (`website`, `intro_zh`, `intro_en`, optional share-card
+`color: "#RRGGBB"`). The file ships with only
 comments. `/vendors/` and `/en/vendors/` list vendors and their latest post dates.
 Each post links to up to five latest other deals in its vendor categories, within
 its own language. No matching deals means the section has no links.

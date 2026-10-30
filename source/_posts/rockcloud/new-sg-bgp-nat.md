@@ -4,7 +4,6 @@ date: 2026-02-15
 updated: 
 categories:
 - rockcloud
-cover: /img/default-cover-v2.webp
 tags:
 - 新加坡VPS
 description: 

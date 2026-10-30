@@ -4,7 +4,6 @@ date: 2026-10-21 09:13:55
 updated: 2026-10-21 09:13:55
 categories:
 - racknerd
-cover: /img/racknerd.png
 tags:
 - Dedicated Servers
 description: "RackNerd dedicated-server deals: 18 configurations from $105/month with 100TB traffic and 1Gbps bandwidth. Very limited stock, first come, first served."

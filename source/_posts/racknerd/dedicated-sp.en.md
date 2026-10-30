@@ -4,7 +4,6 @@ date: 2026-02-18
 updated: 
 categories:
 - racknerd
-cover: /img/racknerd.png
 tags:
 - US VPS
 - Dedicated Servers

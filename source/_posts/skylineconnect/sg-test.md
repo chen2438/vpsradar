@@ -4,7 +4,6 @@ date: 2026-02-18
 updated: 
 categories:
 - skylineconnect
-cover: /img/skylineconnect.png
 tags:
 - 新加坡VPS
 - 评测

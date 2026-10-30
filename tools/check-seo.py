@@ -7,6 +7,7 @@ from urllib.parse import unquote, urljoin, urlsplit
 from zoneinfo import ZoneInfo
 import json
 import re
+import subprocess
 import xml.etree.ElementTree as ET
 from PIL import Image
 
@@ -16,6 +17,44 @@ ORIGIN = 'https://vpsradar.vayki.com'
 POST_COUNT = len(list((ROOT / 'source/_posts').rglob('*.en.md')))
 NS = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9',
       'h': 'http://www.w3.org/1999/xhtml', 'a': 'http://www.w3.org/2005/Atom'}
+
+# Use Hexo's own YAML parser so quoted values, comments and multiline scalars
+# have the same meaning here as during generation. No extra Python dependency.
+post_sources = sorted((ROOT / 'source/_posts').rglob('*.md'))
+front_matters = json.loads(subprocess.check_output(
+    ['node', '-e', """
+const fs = require('node:fs');
+const fm = require('hexo-front-matter');
+const { resolveCover } = require('./scripts/lib/post-cover');
+const paths = JSON.parse(fs.readFileSync(0, 'utf8'));
+console.log(JSON.stringify(paths.map(path => {
+  const { cover, top_img } = fm.parse(fs.readFileSync(path, 'utf8'));
+  const source = '_posts/' + require('node:path').relative('source/_posts', path);
+  return { original_cover: cover, top_img, ...resolveCover({ source, cover }, 'source') };
+})));
+"""], input=json.dumps([str(p) for p in post_sources]), text=True, cwd=ROOT))
+expected_covers = {}
+expected_no_banner = set()
+for source, front in zip(post_sources, front_matters):
+    for field in ['original_cover', 'cover', 'thumbnail', 'top_img']:
+        value = front.get(field)
+        if value is None or value is False:
+            continue
+        assert isinstance(value, str) and value.strip(), f'{source}: invalid {field}'
+        url = urlsplit(value)
+        assert not url.scheme and not url.netloc and value.startswith('/') and not value.startswith('//'), f'{source}: remote/non-local {field}: {value}'
+        targets = [(base / unquote(url.path).lstrip('/')).resolve() for base in [ROOT / 'source', PUBLIC]]
+        assert any(target.is_relative_to(base) and target.is_file() for target, base in zip(targets, [ROOT / 'source', PUBLIC])), f'{source}: missing local {field}: {value}'
+    slug = source.relative_to(ROOT / 'source/_posts').with_suffix('').as_posix()
+    en = slug.endswith('.en')
+    route = ('/en/' + slug.removesuffix('.en') if en else '/' + slug) + '/'
+    expected_covers[route] = front['cover']
+    if front.get('top_img') in (None, False):
+        expected_no_banner.add(route)
+    if front['thumbnail']:
+        thumbnail = PUBLIC / front['thumbnail'].lstrip('/')
+        assert Image.open(thumbnail).size == (600, 315) and thumbnail.stat().st_size <= 30000, thumbnail
+print(f'Checked resolved covers, thumbnails and local cover/top_img paths in {len(post_sources)} posts (remote covers rejected).')
 
 def local_file(url):
     path = unquote(urlsplit(url).path).lstrip('/')
@@ -120,11 +159,14 @@ class Page(HTMLParser):
     def __init__(self, text):
         super().__init__()
         self.links, self.images, self.meta = [], [], []
+        self.anchor_stack, self.cover_links, self.home_covers = [], [], []
         self.title, self.jsonld = '', []
         self.in_title, self.in_json, self.json_text = False, False, ''
         self.feed(text)
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == 'a':
+            self.anchor_stack.append(attrs.get('href', ''))
         if tag == 'title':
             self.in_title = True
         if tag == 'script' and attrs.get('type') == 'application/ld+json':
@@ -134,6 +176,11 @@ class Page(HTMLParser):
             if attrs.get('rel') in ('icon', 'apple-touch-icon'):
                 self.images.append(attrs['href'])
         if tag == 'img':
+            src = attrs.get('data-lazy-src') or attrs.get('src', '')
+            if self.anchor_stack:
+                self.cover_links.append((self.anchor_stack[-1], src))
+            if attrs.get('class') == 'post-bg':
+                self.home_covers.append(src)
             self.images.append(attrs.get('src', ''))
             if attrs.get('data-lazy-src'):
                 self.images.append(attrs['data-lazy-src'])
@@ -149,6 +196,8 @@ class Page(HTMLParser):
             self.json_text += data
 
     def handle_endtag(self, tag):
+        if tag == 'a' and self.anchor_stack:
+            self.anchor_stack.pop()
         if tag == 'title':
             self.in_title = False
         if tag == 'script' and self.in_json:
@@ -157,6 +206,7 @@ class Page(HTMLParser):
             self.in_json = False
 
 count = 0
+seen_covers = set()
 pages = {}
 all_titles = {}
 all_descriptions = {}
@@ -186,7 +236,11 @@ for file in PUBLIC.rglob('*.html'):
         assert article['publisher']['sameAs'] == ['https://t.me/vps_1nfo'], file
         assert article['datePublished'] == meta['article:published_time'], file
         assert article['dateModified'] == meta['article:modified_time'], file
-        assert '/img/cards/' in meta['og:image'], file
+        card_path = urlsplit(meta['og:image']).path
+        expected_slug = urlsplit(canonical).path.removeprefix('/en/').strip('/') if english else urlsplit(canonical).path.strip('/')
+        assert card_path == '/img/cards/' + expected_slug + ('.en.jpg' if english else '.jpg'), file
+        if unquote(urlsplit(canonical).path) in expected_no_banner:
+            assert re.search(r'<header[^>]*class="not-top-img[^"]*"', file.read_text()), file
         card = local_file(meta['og:image'])
         assert Image.open(card).size == (1200, 630) and card.stat().st_size <= 120000, file
         crumbs = nodes['BreadcrumbList']['itemListElement']
@@ -223,7 +277,13 @@ for file in PUBLIC.rglob('*.html'):
         if urlsplit(target).netloc == urlsplit(ORIGIN).netloc:
             assert local_file(target).is_file(), (file, image)
             assert urlsplit(target).path not in ['/img/favicon.png', '/img/default.png'], (file, image)
+    for href, src in page.cover_links:
+        route = unquote(urlsplit(href).path)
+        if route in expected_covers:
+            assert src == expected_covers[route], (file, route, src, expected_covers[route])
+            seen_covers.add(route)
     count += 1
+assert seen_covers == expected_covers.keys(), ('Covers missing from rendered lists', expected_covers.keys() - seen_covers)
 assert (PUBLIC / 'robots.txt').read_bytes() == (ROOT / 'source/robots.txt').read_bytes()
 assert (PUBLIC / 'robots.txt').read_text() == 'User-agent: *\nAllow: /\nSitemap: ' + ORIGIN + '/sitemap.xml\n'
 for name, size, limit in [('favicon-32-v2.png', (32, 32), 20000),
@@ -241,6 +301,9 @@ zh_home = pages['index.html']
 assert all(word in zh_home.title for word in ['VPS优惠', '优惠码', '双十一', '黑五'])
 assert not re.search(r'[\u4e00-\u9fff]', pages['en/index.html'].title)
 for relative in ['index.html', 'en/index.html']:
+    covers = pages[relative].home_covers
+    assert len(covers) == 10 and all(src.startswith('/img/cards/') and src.endswith('.webp') and local_file(src).is_file() for src in covers), relative
+    assert all(src.endswith('.en.webp') == relative.startswith('en/') for src in covers), relative
     nodes = {node['@type']: node for node in pages[relative].jsonld}
     assert {'Organization', 'WebSite'} <= nodes.keys(), relative
     assert nodes['Organization']['sameAs'] == ['https://t.me/vps_1nfo'], relative
@@ -255,5 +318,4 @@ for relative in ['404.html', 'en/404.html']:
 print('Checked localized metadata, unique titles/descriptions, self-canonical pagination, social cards, JSON-LD and bilingual 404 pages.')
 
 # Render actual templates with synthetic front matter in a disposable site.
-import subprocess
 subprocess.run(['node', str(ROOT / 'tools/check-deals.cjs')], cwd=ROOT, check=True)

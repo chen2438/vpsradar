@@ -116,14 +116,16 @@ cover:
   aside_enable: true
   archives_enable: true
   # When cover is not set, the default cover is displayed
-  suffix: 1
+  suffix: 0
   # 在链接后面加入后缀?spm={随机数}
   # 0是不使用后缀; 1是?加随机数; 2是&加随机数
   default_cover:
-    - https://www.loliapi.com/acg/
+    - /img/default-cover-v2.webp
 
 # Replace Broken Images
 error_img:
+  # Post cards/thumbnails; post_page remains the in-article broken-image fallback.
+  cover: /img/default-cover-v2.webp
   flink: /img/friend_404.gif
   post_page: /img/404.jpg
 

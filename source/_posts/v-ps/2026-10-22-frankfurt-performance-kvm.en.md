@@ -4,7 +4,6 @@ date: 2026-10-22 00:08:59
 updated: 2026-10-22 08:34:57
 categories:
 - v-ps
-cover: /img/default-cover-v2.webp
 tags:
 - Germany VPS
 - New Products

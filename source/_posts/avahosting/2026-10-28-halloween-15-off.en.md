@@ -6,7 +6,6 @@ lang: en
 translation_key: avahosting/2026-10-28-halloween-15-off
 categories:
 - avahosting
-cover: /img/avahosting.png
 tags:
 - Halloween
 - Dedicated Servers

@@ -4,7 +4,6 @@ date: 2026-02-18
 updated: 
 categories:
 - hoyoverse
-cover: /img/hoyoverse.png
 tags:
 - Macau VPS
 - Hong Kong VPS

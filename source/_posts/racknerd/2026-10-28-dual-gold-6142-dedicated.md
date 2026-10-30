@@ -5,7 +5,6 @@ updated: 2026-10-28 01:19:59
 translation_key: racknerd/2026-10-28-dual-gold-6142-dedicated
 categories:
 - racknerd
-cover: /img/racknerd.png
 tags:
 - 独服
 description: RackNerd 独立服务器特价 仅限一台 双路 Xeon Gold 6142 192GB 内存 3.84TB SSD 100TB 流量 10Gbps 5 个 IP 月付 190 美元 年付折合每月 120 美元

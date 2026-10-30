@@ -4,7 +4,6 @@ date: 2026-10-25 07:06:37
 updated: 2026-10-25 07:08:04
 categories:
 - calibernode
-cover: /img/default-cover-v2.webp
 tags:
 - 美国VPS
 - 万圣节

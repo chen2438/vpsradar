@@ -4,7 +4,6 @@ date: 2026-10-26 12:11:23
 updated: 2026-10-27 15:18:20
 categories:
 - greencloud
-cover: /img/default-cover-v2.webp
 tags:
 - 新加坡VPS
 - 日本VPS
