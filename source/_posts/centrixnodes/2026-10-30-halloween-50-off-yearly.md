@@ -3,6 +3,7 @@ title: "CentrixNodes 万圣节 2026 年付五折 LETYEARLY"
 date: 2026-10-30 02:32:19
 updated: 2026-10-30 02:32:19
 translation_key: "centrixnodes/2026-10-30-halloween-50-off-yearly"
+cover: /img/default-cover-v2.webp
 categories:
 - centrixnodes
 tags:

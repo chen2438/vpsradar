@@ -4,6 +4,7 @@ date: 2026-10-30 02:32:19
 updated: 2026-10-30 02:32:19
 lang: en
 translation_key: "centrixnodes/2026-10-30-halloween-50-off-yearly"
+cover: /img/default-cover-v2.webp
 categories:
 - centrixnodes
 tags:

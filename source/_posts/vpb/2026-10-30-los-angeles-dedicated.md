@@ -3,6 +3,7 @@ title: "VPB 洛杉矶独服特惠 2026 月付 $12.99 起免码"
 date: 2026-10-30 14:11:00
 updated: 2026-10-30 14:11:00
 translation_key: "vpb/2026-10-30-los-angeles-dedicated"
+cover: /img/default-cover-v2.webp
 categories:
 - vpb
 tags:

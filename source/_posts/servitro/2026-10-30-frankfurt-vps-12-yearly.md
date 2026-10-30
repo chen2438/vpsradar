@@ -3,6 +3,7 @@ title: "Servitro 法兰克福 VPS 2026 年付 $12 起及优惠码"
 date: 2026-10-30 14:45:44
 updated: 2026-10-30 14:45:44
 translation_key: "servitro/2026-10-30-frankfurt-vps-12-yearly"
+cover: /img/default-cover-v2.webp
 categories:
 - servitro
 tags:

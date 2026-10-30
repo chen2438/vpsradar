@@ -226,6 +226,9 @@ image cache (purge the old cached URL when deploying the replacement).
   deal fields are optional: `price` (text), `location`, `network`, `expires`
   (`YYYY-MM-DD`, quoted recommended), `coupon`, and `buy_url`. Omit unknown values;
   never infer an expiry date, price, coupon or vendor fact. See `scaffolds/post.md`.
+- Set `cover: /img/default-cover-v2.webp` in both posts, or use an existing local
+  vendor image under `source/`. Covers are required and must not use remote HTTP(S)
+  URLs; local `cover` and `top_img` paths must point to files under `source/`.
 - Publish Chinese `<slug>.md` and English `<slug>.en.md` together; set `lang: en`
   on English and follow the translation key, category and date rules above.
 - Run `python3 tools/generate-cards.py`, commit the generated cards, then run

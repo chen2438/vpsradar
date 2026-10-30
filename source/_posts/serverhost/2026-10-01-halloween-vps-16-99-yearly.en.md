@@ -4,6 +4,7 @@ date: 2026-10-01 19:00:57
 updated: 2026-10-01 19:00:57
 lang: en
 translation_key: "serverhost/2026-10-01-halloween-vps-16-99-yearly"
+cover: /img/default-cover-v2.webp
 categories:
 - serverhost
 tags:

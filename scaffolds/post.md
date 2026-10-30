@@ -2,6 +2,7 @@
 title: {{ title }}
 date: {{ date }}
 tags:
+cover: /img/default-cover-v2.webp
 # description: Verified summary, including price when available
 # price: ""
 # location: ""

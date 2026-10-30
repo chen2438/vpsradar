@@ -7,6 +7,7 @@ from urllib.parse import unquote, urljoin, urlsplit
 from zoneinfo import ZoneInfo
 import json
 import re
+import subprocess
 import xml.etree.ElementTree as ET
 from PIL import Image
 
@@ -16,6 +17,30 @@ ORIGIN = 'https://vpsradar.vayki.com'
 POST_COUNT = len(list((ROOT / 'source/_posts').rglob('*.en.md')))
 NS = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9',
       'h': 'http://www.w3.org/1999/xhtml', 'a': 'http://www.w3.org/2005/Atom'}
+
+# Use Hexo's own YAML parser so quoted values, comments and multiline scalars
+# have the same meaning here as during generation. No extra Python dependency.
+post_sources = sorted((ROOT / 'source/_posts').rglob('*.md'))
+front_matters = json.loads(subprocess.check_output(
+    ['node', '-e', """
+const fs = require('node:fs');
+const fm = require('hexo-front-matter');
+const paths = JSON.parse(fs.readFileSync(0, 'utf8'));
+console.log(JSON.stringify(paths.map(path => {
+  const { cover, top_img } = fm.parse(fs.readFileSync(path, 'utf8'));
+  return { cover, top_img };
+})));
+"""], input=json.dumps([str(p) for p in post_sources]), text=True, cwd=ROOT))
+for source, front in zip(post_sources, front_matters):
+    cover = front.get('cover')
+    assert isinstance(cover, str) and cover.strip(), f'{source}: missing cover'
+    assert not re.match(r'^(?:https?:)?//', cover.strip(), re.I), f'{source}: remote cover: {cover}'
+    for field in ['cover', 'top_img']:
+        value = front.get(field)
+        if isinstance(value, str) and value.startswith('/') and not value.startswith('//'):
+            target = (ROOT / 'source' / unquote(urlsplit(value).path).lstrip('/')).resolve()
+            assert target.is_relative_to(ROOT / 'source') and target.is_file(), f'{source}: missing local {field}: {value}'
+print(f'Checked required covers and local cover/top_img paths in {len(post_sources)} posts.')
 
 def local_file(url):
     path = unquote(urlsplit(url).path).lstrip('/')
@@ -255,5 +280,4 @@ for relative in ['404.html', 'en/404.html']:
 print('Checked localized metadata, unique titles/descriptions, self-canonical pagination, social cards, JSON-LD and bilingual 404 pages.')
 
 # Render actual templates with synthetic front matter in a disposable site.
-import subprocess
 subprocess.run(['node', str(ROOT / 'tools/check-deals.cjs')], cwd=ROOT, check=True)

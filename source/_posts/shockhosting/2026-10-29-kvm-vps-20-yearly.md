@@ -3,6 +3,7 @@ title: "Shock Hosting 年付特惠 2026 优惠码 LEW2GB"
 date: 2026-10-29 18:48:20
 updated: 2026-10-29 18:48:20
 translation_key: "shockhosting/2026-10-29-kvm-vps-20-yearly"
+cover: /img/default-cover-v2.webp
 categories:
 - shockhosting
 tags:

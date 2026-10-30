@@ -4,6 +4,7 @@ date: 2026-10-30 14:11:00
 updated: 2026-10-30 14:11:00
 lang: en
 translation_key: "vpb/2026-10-30-los-angeles-dedicated"
+cover: /img/default-cover-v2.webp
 categories:
 - vpb
 tags:

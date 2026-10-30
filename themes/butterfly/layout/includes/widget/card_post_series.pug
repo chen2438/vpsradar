@@ -13,7 +13,7 @@ if theme.aside.card_post_series.enable
           if cover && theme.cover.aside_enable
             a.thumbnail(href=link title=title)
               if cover_type === 'img'
-                img(src=url_for(cover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.post_page)}'` alt=title)
+                img(src=url_for(cover) onerror=`this.onerror=null;this.src='${url_for(theme.error_img.cover || theme.error_img.post_page)}'` alt=title)
               else
                 div(style=`background: ${cover}`)
           .content

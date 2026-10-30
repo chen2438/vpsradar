@@ -28,6 +28,15 @@ const root = path.resolve(__dirname, '..');
     const html = async route => fs.readFile(path.join(dir, 'public', route, 'index.html'), 'utf8');
     for (const prefix of ['', 'en/']) {
       const post = await html(prefix + 'fixture-1');
+      // These fixtures omit cover: verify both the default and thumbnail fallback.
+      const home = await html(prefix);
+      const covers = [...home.matchAll(/<img\b[^>]*class="post-bg"[^>]*>/g)].map(m => m[0]);
+      assert(covers.length > 0);
+      for (const cover of covers) {
+        assert(cover.includes('src="/img/default-cover-v2.webp"'), cover);
+        assert(cover.includes("this.src='/img/default-cover-v2.webp'"), cover);
+        assert(!/loliapi|\/img\/404\.jpg/.test(cover), cover);
+      }
       for (const value of ['deal-summary', 'TEST PRICE', 'TEST LOCATION', 'TEST NETWORK', '&lt;TEST&gt;', '2000-01-01', 'target="_blank" rel="sponsored nofollow noopener"', 'vendor-related']) assert(post.includes(value), value);
       for (const label of prefix ? ['Price', 'Location', 'Network', 'Valid until', 'Coupon', 'Visit vendor', 'Expired'] : ['价格', '机房', '线路', '有效期', '优惠码', '前往官网', '已过期']) assert(post.includes(label), label);
       assert.match(post, /class="deal-expired" data-expires="2000-01-01">/);
