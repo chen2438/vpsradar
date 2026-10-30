@@ -187,17 +187,26 @@ Both homes emit Organization and WebSite. Populate `_config.yml`'s empty
 
 Every post's social image is a 1200×630 JPEG of at most 120KB, with its title,
 vendor and VPS Radar brand. Vendor accents use SHA-256 of the exact category
-slug (falling back to the folder name), mapped to twelve hue buckets at fixed
-72% saturation / 68% lightness. The accent colors the left bar, vendor label and
-subtle glow on a dark base. To override it, add `color: "#RRGGBB"` under that
-vendor in `source/_data/vendors.yml`; dark overrides are lightened for readable
-labels and badge outlines while the bar/glow keep the chosen color.
+slug (falling back to the folder name), mapped to 16 curated vivid colors.
+The 43 current vendors have pinned colors in `source/_data/vendors.yml` to
+balance reuse (two or three vendors per color) and contrast neighboring vendor
+slugs. CentrixNodes and DediRock use clearly different hues. Manual `color: "#RRGGBB"` overrides always win. Accents fill the 20px left bar, visible radial
+glow and deal badge; badge text chooses black or white by WCAG contrast (>=4.5).
+Vendor labels use the accent, lightened when a dark override needs contrast.
 
-Cards show a large deal badge only when front matter supplies `price` and/or
-`coupon`, with localized `码` / `Code` coupon labels. Body text is never used.
-Long badge values are measured and ellipsized at a fixed readable font size;
-titles reserve space for badges and use at most two lines (four without badges),
-with an ellipsis for overflow. Both language variants use the same vendor accent.
+Badges use only optional scalar `price` and/or `coupon` front matter, never body
+text, with localized 码 / Code labels. Titles reserve badge space (two lines
+with badges, four without). Balanced wrapping keeps Latin words, coupon codes,
+prices and currency units together and avoids single final words/CJK characters
+where a legal alternative exists. Oversized tokens and excess lines are clipped
+with an ellipsis. Both language variants use the same vendor accent.
+
+Current vivid-card payloads (110 posts): JPEGs total 6,268,743 bytes, WebP
+thumbnails total 1,078,654 bytes; largest files are 84,484 and 16,820 bytes.
+Chinese/English home image payloads are 120,146 / 131,066 bytes, including the
+shared logo once. Social metadata still points to JPEG. Reproduce with
+`python3 tools/measure-home-images.py` after generating the site.
+
 Cards mirror source paths under
 `source/img/cards/<vendor>/<slug>.jpg`; English filenames retain `.en` so they
 never replace Chinese cards. Missing cards fall back to `/img/og-default-v2.jpg`.

@@ -1,6 +1,90 @@
-# Optional vendor details, keyed by the exact category name:
-# example-vendor:
-#   color: "#56D7EB" # Optional share-card accent; omit for a stable slug-derived hue.
-#   website: https://example.com/
-#   intro_zh: 在此填写经核实的商家介绍。
-#   intro_en: Add a verified vendor introduction here.
+# Optional vendor details keyed by category slug. Manual color overrides always win.
+# Pinned accents balance 43 current vendors across 16 vivid hues (2–3 uses each).
+# Adjacent vendor slugs use contrasting hues; new unpinned vendors use SHA-256.
+# Optional fields: website, intro_zh, intro_en.
+akilecloud:
+  color: "#FF7591"
+alexhost:
+  color: "#2ED5BE"
+avahosting:
+  color: "#BAE535"
+calibernode:
+  color: "#DF58ED"
+centrixnodes:
+  color: "#28D6EC"
+charityhost:
+  color: "#F5E642"
+dedirock:
+  color: "#FF59B3"
+digitalvirt:
+  color: "#39B6FF"
+fxtransit:
+  color: "#60D653"
+geelinx:
+  color: "#FF5252"
+greencloud:
+  color: "#8D78FF"
+hostnoc:
+  color: "#26CD91"
+hoyoverse:
+  color: "#FF852D"
+inetws:
+  color: "#B56AFF"
+infrawire:
+  color: "#648CFF"
+kuxueyun:
+  color: "#FFB82E"
+lisahost:
+  color: "#60D653"
+miaomiaomoe:
+  color: "#8D78FF"
+mkcloud:
+  color: "#FF5252"
+ovh:
+  color: "#26CD91"
+packets-decreaser:
+  color: "#B56AFF"
+panstar:
+  color: "#FFB82E"
+qbitcloud:
+  color: "#2ED5BE"
+racknerd:
+  color: "#DF58ED"
+raff:
+  color: "#F5E642"
+reliablesite:
+  color: "#28D6EC"
+rfchost:
+  color: "#FF59B3"
+rockcloud:
+  color: "#BAE535"
+serverhost:
+  color: "#39B6FF"
+serverscamp:
+  color: "#FF7591"
+servitro:
+  color: "#FF852D"
+shockhosting:
+  color: "#648CFF"
+skylineconnect:
+  color: "#60D653"
+solidvps:
+  color: "#FF7591"
+tencentcloud:
+  color: "#648CFF"
+termrat:
+  color: "#BAE535"
+unesty:
+  color: "#FF59B3"
+v-ps:
+  color: "#39B6FF"
+vmiss:
+  color: "#F5E642"
+vmshell:
+  color: "#DF58ED"
+vpb:
+  color: "#2ED5BE"
+yecaoyun:
+  color: "#FFB82E"
+yxvm:
+  color: "#B56AFF"
