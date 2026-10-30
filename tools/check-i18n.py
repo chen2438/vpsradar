@@ -64,8 +64,9 @@ for path in PUBLIC.rglob('*.html'):
     switch = page.switches[0]['href']
     assert file_for(switch).is_file(), (rel, switch)
     assert switch.startswith('/en/') != english, (rel, switch)
-    for marker in ['static.cloudflareinsights.com/beacon.min.js', '/_vercel/insights/script.js', 'busuanzi.pure.mini.js']:
+    for marker in ['static.cloudflareinsights.com/beacon.min.js', '/_vercel/insights/script.js', 'https://events.vercount.one/js']:
         assert marker in text, (rel, marker)
+    assert 'busuanzi.ibruce.info' not in text, rel
     assert 'busuanzi_value_' in text or rel.endswith('404.html'), rel
     # All same-site page links should resolve, including menu, sidebar, related
     # posts, taxonomy and pagination links. Ignore external services and assets.
