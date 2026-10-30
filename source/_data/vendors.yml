@@ -1,5 +1,6 @@
 # Optional vendor details, keyed by the exact category name:
 # example-vendor:
+#   color: "#56D7EB" # Optional share-card accent; omit for a stable slug-derived hue.
 #   website: https://example.com/
 #   intro_zh: 在此填写经核实的商家介绍。
 #   intro_en: Add a verified vendor introduction here.

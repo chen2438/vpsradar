@@ -186,7 +186,19 @@ Both homes emit Organization and WebSite. Populate `_config.yml`'s empty
 `seo.same_as` list when official social profiles are ready; empty lists are omitted.
 
 Every post's social image is a 1200×630 JPEG of at most 120KB, with its title,
-vendor and VPS Radar brand. Cards mirror source paths under
+vendor and VPS Radar brand. Vendor accents use SHA-256 of the exact category
+slug (falling back to the folder name), mapped to twelve hue buckets at fixed
+72% saturation / 68% lightness. The accent colors the left bar, vendor label and
+subtle glow on a dark base. To override it, add `color: "#RRGGBB"` under that
+vendor in `source/_data/vendors.yml`; dark overrides are lightened for readable
+labels and badge outlines while the bar/glow keep the chosen color.
+
+Cards show a large deal badge only when front matter supplies `price` and/or
+`coupon`, with localized `码` / `Code` coupon labels. Body text is never used.
+Long badge values are measured and ellipsized at a fixed readable font size;
+titles reserve space for badges and use at most two lines (four without badges),
+with an ellipsis for overflow. Both language variants use the same vendor accent.
+Cards mirror source paths under
 `source/img/cards/<vendor>/<slug>.jpg`; English filenames retain `.en` so they
 never replace Chinese cards. Missing cards fall back to `/img/og-default-v2.jpg`.
 Open Graph and Twitter use the page's title and absolute card URL; Open Graph
@@ -232,8 +244,23 @@ build. Home totals count unique local `<img src>` resources, including the share
 logo/avatar, once per cold page load (lazy loading is disabled). They exclude
 HTTP headers, metadata-only social images and error fallbacks. Chinese/English
 home image payloads drop 92.9%/92.0%; thumbnail storage adds 18.5% to card assets.
-JPEGs are unchanged. Existing image and script budgets remain unchanged; generated
+The table above records the thumbnail rollout before vendor accents and deal badges.
+Current card totals are recorded below. Existing image and script budgets remain
+unchanged; generated
 thumbnails have an additional 30 KB per-file limit (600×315 WebP).
+
+
+Vendor-accent and deal-badge regeneration (110 posts; compared with branch head
+`7f9c159`, before this design update):
+
+| Images | Before (bytes) | After (bytes) |
+| --- | ---: | ---: |
+| 110 social JPEG cards | 5,423,462 | 5,499,675 |
+| 110 WebP thumbnails | 1,005,170 | 993,132 |
+| Total card assets | 6,428,632 | 6,492,807 |
+
+Largest JPEG: 75,514 bytes (120,000 limit); largest thumbnail: 14,168 bytes
+(30,000 limit). Social metadata continues to reference JPEGs.
 
 
 ## Publishing checklist
@@ -275,7 +302,8 @@ Invalid dates are ignored. Expiry is not added to JSON-LD.
 
 Categories serve as vendor collections with counts and latest deals. Optional
 verified introductions and official links go in `source/_data/vendors.yml`, keyed
-by exact category name (`website`, `intro_zh`, `intro_en`). The file ships with only
+by exact category name (`website`, `intro_zh`, `intro_en`, optional share-card
+`color: "#RRGGBB"`). The file ships with only
 comments. `/vendors/` and `/en/vendors/` list vendors and their latest post dates.
 Each post links to up to five latest other deals in its vendor categories, within
 its own language. No matching deals means the section has no links.
