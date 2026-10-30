@@ -3,3 +3,14 @@
 .deal-vendor-link{display:inline-block;padding:.4rem .8rem;border:1px solid currentColor;border-radius:6px}.deal-expired{display:inline-block;margin:0 .5rem;padding:0 .4rem;border:1px solid currentColor;border-radius:4px;color:var(--font-color)}
 .deal-expiry-notice{padding:1rem;border-left:4px solid #e89c32;background:var(--card-bg);color:var(--font-color)}[data-expires][hidden]{display:none!important}
 .deal-search{margin-right:1rem}.deal-search summary{cursor:pointer}.deal-search-panel{position:absolute;right:1rem;top:4rem;width:min(90vw,420px);max-height:70vh;overflow:auto;padding:1rem;border-radius:8px;background:var(--card-bg);color:var(--font-color);box-shadow:0 3px 12px #0004}.deal-search-panel input{display:block;width:100%;padding:.5rem;border:1px solid #888;background:var(--card-bg);color:var(--font-color)}.deal-search-panel a{color:var(--font-color)!important}.vendors-index li{margin:.8rem 0}
+
+/* Full 1200:630 share cards; override Butterfly heights and hover zoom. */
+#recent-posts .recent-post-items .recent-post-item{height:auto;align-items:center}
+#recent-posts .recent-post-items .recent-post-item .post_cover{flex-shrink:0;height:auto;aspect-ratio:1200/630}
+#recent-posts .post_cover>a{display:block;width:100%;height:100%}
+#recent-posts .recent-post-items .recent-post-item .post_cover .post-bg,#recent-posts .recent-post-items .recent-post-item .post_cover .post-bg:hover{display:block;width:100%;height:100%;object-fit:cover;transform:none}
+#recent-posts .recent-post-items .recent-post-item>.recent-post-info{padding:20px 40px}
+@media(max-width:768px){#recent-posts .recent-post-items .recent-post-item .post_cover{width:100%}#recent-posts .recent-post-items .recent-post-item>.recent-post-info{padding:20px 20px 30px}}
+#aside-content .aside-list-item .thumbnail img{object-position:left center}
+.article-sort .article-sort-item-img{flex-shrink:0;height:auto;aspect-ratio:1200/630}
+.article-sort .article-sort-item-img img,.article-sort .article-sort-item-img img:hover{display:block;width:100%;height:100%;object-fit:cover;transform:none}
