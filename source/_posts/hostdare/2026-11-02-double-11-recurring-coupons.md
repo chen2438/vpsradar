@@ -33,14 +33,14 @@ HostDare 在自有 NodeSeek 商家帖发布双十一循环优惠:日本 JSSD 九
 
 日本东京,Softbank 网络,KVM,非托管。含 1 个独立 IPv4,JSSD6 为 2 个 IPv4;JSSD1 仅限 Linux。
 
-| 套餐 | vCPU / 内存 / NVMe | 月流量 / 端口 | 券前原价 | 核对时库存 |
-| --- | --- | --- | --- | --- |
-| JSSD1 | 1 / 1 GB / 20 GB | 500 GB / 50 Mbps | $55.99 半年付 | 0(无货) |
-| JSSD2 | 2 / 2 GB / 40 GB | 1000 GB / 60 Mbps | $40.99 季付 | 0(无货) |
-| JSSD3 | 3 / 4 GB / 80 GB | 1500 GB / 80 Mbps | $45.99 月付 | — |
-| JSSD4 | 4 / 8 GB / 160 GB | 2500 GB / 100 Mbps | $80.99 月付 | — |
-| JSSD5 | 5 / 16 GB / 320 GB | 3500 GB / 100 Mbps | $150.99 月付 | — |
-| JSSD6 | 6 / 32 GB / 600 GB | 5500 GB / 100 Mbps | $250.99 月付 | — |
+| 套餐 | vCPU / 内存 / NVMe | 月流量 / 端口 | 券前原价 |
+| --- | --- | --- | --- |
+| JSSD1(核对时无货) | 1 / 1 GB / 20 GB | 500 GB / 50 Mbps | $55.99 半年付 |
+| JSSD2(核对时无货) | 2 / 2 GB / 40 GB | 1000 GB / 60 Mbps | $40.99 季付 |
+| JSSD3 | 3 / 4 GB / 80 GB | 1500 GB / 80 Mbps | $45.99 月付 |
+| JSSD4 | 4 / 8 GB / 160 GB | 2500 GB / 100 Mbps | $80.99 月付 |
+| JSSD5 | 5 / 16 GB / 320 GB | 3500 GB / 100 Mbps | $150.99 月付 |
+| JSSD6 | 6 / 32 GB / 600 GB | 5500 GB / 100 Mbps | $250.99 月付 |
 
 商店:https://bill.hostdare.com/store/premium-japan-kvm-vps
 
@@ -48,14 +48,14 @@ HostDare 在自有 NodeSeek 商家帖发布双十一循环优惠:日本 JSSD 九
 
 1 Gbps 端口、1 IPv4/IPv6;SSD5、SSD6 为 2 IPv4 / 6 IPv6。SSD1 仅限 Linux;测试 IP:`202.91.32.37`。
 
-| 套餐 | vCPU / 内存 / NVMe | 月流量 | 券前原价 | 核对时库存 |
-| --- | --- | --- | --- | --- |
-| SSD1 | 1 / 1 GB / 25 GB | 1000 GB | $11.99 季付 | 有货 |
-| SSD2 | 2 / 2 GB / 50 GB | 2000 GB | $23.97 季付 | — |
-| SSD3 | 3 / 4 GB / 100 GB | 3000 GB | $13.99 月付 | — |
-| SSD4 | 4 / 8 GB / 200 GB | 5000 GB | $25.99 月付 | — |
-| SSD5 | 5 / 16 GB / 400 GB | 10000 GB | $48.99 月付 | — |
-| SSD6 | 6 / 32 GB / 800 GB | 20000 GB | $94.99 月付 | — |
+| 套餐 | vCPU / 内存 / NVMe | 月流量 | 券前原价 |
+| --- | --- | --- | --- |
+| SSD1 | 1 / 1 GB / 25 GB | 1000 GB | $11.99 季付 |
+| SSD2 | 2 / 2 GB / 50 GB | 2000 GB | $23.97 季付 |
+| SSD3 | 3 / 4 GB / 100 GB | 3000 GB | $13.99 月付 |
+| SSD4 | 4 / 8 GB / 200 GB | 5000 GB | $25.99 月付 |
+| SSD5 | 5 / 16 GB / 400 GB | 10000 GB | $48.99 月付 |
+| SSD6 | 6 / 32 GB / 800 GB | 20000 GB | $94.99 月付 |
 
 商店:https://bill.hostdare.com/store/los-angeles-ssd-kvm
 
@@ -63,21 +63,19 @@ HostDare 在自有 NodeSeek 商家帖发布双十一循环优惠:日本 JSSD 九
 
 保加利亚索非亚,1 Gbps 端口、1 IPv4/IPv6;BGSSD5、BGSSD6 为 2 IPv4 / 6 IPv6。BGSSD0、BGSSD1 仅限 Linux。
 
-| 套餐 | vCPU / 内存 / NVMe | 月流量 | 券前原价 | 核对时库存 |
-| --- | --- | --- | --- | --- |
-| BGSSD0 | 1 / 768 MB / 10 GB | 5000 GB | $10.99 季付 | 0(无货) |
-| BGSSD1 | 1 / 1 GB / 25 GB | 10000 GB | $15.99 季付 | — |
-| BGSSD2 | 2 / 2 GB / 50 GB | 20000 GB | $23.97 季付 | — |
-| BGSSD3 | 3 / 4 GB / 100 GB | 30000 GB | $13.99 月付 | — |
-| BGSSD4 | 4 / 8 GB / 200 GB | 50000 GB | $25.99 月付 | — |
-| BGSSD5 | 5 / 16 GB / 400 GB | 100000 GB | $48.99 月付 | — |
-| BGSSD6 | 6 / 32 GB / 800 GB | 200000 GB | $94.99 月付 | — |
+| 套餐 | vCPU / 内存 / NVMe | 月流量 | 券前原价 |
+| --- | --- | --- | --- |
+| BGSSD0(核对时无货) | 1 / 768 MB / 10 GB | 5000 GB | $10.99 季付 |
+| BGSSD1 | 1 / 1 GB / 25 GB | 10000 GB | $15.99 季付 |
+| BGSSD2 | 2 / 2 GB / 50 GB | 20000 GB | $23.97 季付 |
+| BGSSD3 | 3 / 4 GB / 100 GB | 30000 GB | $13.99 月付 |
+| BGSSD4 | 4 / 8 GB / 200 GB | 50000 GB | $25.99 月付 |
+| BGSSD5 | 5 / 16 GB / 400 GB | 100000 GB | $48.99 月付 |
+| BGSSD6 | 6 / 32 GB / 800 GB | 200000 GB | $94.99 月付 |
 
 商店:https://bill.hostdare.com/store/bg-ssd-kvm
 
 ### 说明
-
-- 库存栏「—」表示所提供的资料未列出具体数量。
 
 - 摘要中的 $11.99/季券前原价对应洛杉矶 SSD1,为核对时最便宜的有货套餐。本文不计算折后价格。
 - 原帖还泛指中国优化连接(CSSD Intel),不属于上述三组优惠码活动。

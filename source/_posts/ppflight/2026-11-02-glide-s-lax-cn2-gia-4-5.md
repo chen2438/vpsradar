@@ -28,7 +28,7 @@ NodeSeek 用户 musensen 发帖介绍 PPFlight 新创始人套餐 Glide S,$4.5/�
 - 原帖称三网优化:电信去程 CN2 GIA、回程 CMIN2/9929 动态;联通 CUGVIP;移动 CMIN2。
 - 流量双向统计;年付约便宜 24%,年付金额按原文保留约数。
 - 未注明优惠码或截止日期。
-- **信息仅来自 NodeSeek 帖子,官网未验证:所提供的 curl 核对结果为 Cloudflare 挑战页、HTTP 403。**
+- **信息仅来自 NodeSeek 帖子;官网有 Cloudflare 验证,本站未能核对官网价格与配置,下单前请以官网为准。**
 - 官网:https://www.ppflight.com
 
 ## 来源

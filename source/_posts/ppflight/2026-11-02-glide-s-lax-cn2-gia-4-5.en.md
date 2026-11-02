@@ -29,7 +29,7 @@ NodeSeek user musensen posted PPFlight's new founder plan Glide S at $4.5/month,
 - The post describes optimization for all three major Chinese carriers: China Telecom inbound CN2 GIA, outbound CMIN2/9929 dynamic; China Unicom CUGVIP; China Mobile CMIN2.
 - Transfer counts both inbound and outbound traffic. Annual billing is described as about 24% cheaper; the annual price is approximate as written in the source.
 - No coupon or end date is stated.
-- **The source is the NodeSeek post only. The official site was not verified: the supplied curl check encountered a Cloudflare challenge with HTTP 403.**
+- **Source is the NodeSeek post only; the official site is behind a Cloudflare check and we could not verify price or specs there — confirm on the official site before ordering.**
 - Website: https://www.ppflight.com
 
 ## Sources
