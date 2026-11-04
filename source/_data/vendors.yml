@@ -88,3 +88,13 @@ yecaoyun:
   color: "#FFB82E"
 yxvm:
   color: "#B56AFF"
+zenlayer:
+  name: "Zenlayer"
+  website: "https://www.zenlayer.com"
+  intro_zh: "Zenlayer（Zenlayer Inc.）是一家全球边缘云服务商,提供裸金属与云服务器。"
+  intro_en: "Zenlayer (Zenlayer Inc.) is a global edge cloud provider offering bare metal and cloud servers."
+raksmart:
+  name: "RakSmart"
+  website: "https://www.raksmart.com"
+  intro_zh: "RakSmart 是一家在硅谷设有数据中心的美国主机服务商,提供 VPS、裸金属云与独立服务器。"
+  intro_en: "RakSmart is a US hosting provider with data centers in Silicon Valley, offering VPS, bare metal cloud and dedicated servers."
