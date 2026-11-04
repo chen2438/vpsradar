@@ -11,7 +11,7 @@ tags:
 - "Black Friday"
 - "Dual ISP"
 - "US VPS"
-- "Dedicated Server"
+- "Dedicated Servers"
 description: "RakSmart Double 11 / Black Friday: Silicon Valley Dual ISP DIA VPS from $3.87/month at 30% off on the official page; dedicated-server deals from the vendor announcement. Up to $355 top-up bonus; top-ups end November 10 Beijing time."
 price: "From $3.87/month"
 location: "Silicon Valley, USA"

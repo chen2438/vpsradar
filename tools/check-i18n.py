@@ -55,8 +55,7 @@ for path in PUBLIC.rglob('*.html'):
     assert page.lang == ('en' if english else 'zh-CN'), rel
     canonical = [link['href'] for link in page.links if link.get('rel') == 'canonical']
     assert canonical == [ORIGIN + '/' + rel.removesuffix('index.html')], (rel, canonical)
-    alternates = {link['hreflang']: link['href'] for link in page.links
-                  if 'hreflang' in link and link.get('type') != 'application/atom+xml'}
+    alternates = {link['hreflang']: link['href'] for link in page.links if 'hreflang' in link}
     assert 'x-default' in alternates, rel
     assert alternates[page.lang] == canonical[0], rel
     for target in alternates.values():
@@ -87,7 +86,7 @@ for path in PUBLIC.rglob('*.html'):
     other_language = 'zh-CN' if english else 'en'
     if other_language in alternates:
         other = Page(file_for(alternates[other_language]).read_text())
-        assert other.switches and other.switches[0]['href'] == urlsplit(canonical[0]).path, (rel, alternates, other.switches)
+        assert other.switches[0]['href'] == urlsplit(canonical[0]).path, rel
 
 originals = [p for p in (ROOT / 'source/_posts').rglob('*.md') if not p.name.endswith('.en.md')]
 paired = 0

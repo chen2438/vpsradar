@@ -9,8 +9,8 @@ categories:
 tags:
 - "Black Friday"
 - "Bare Metal"
-- "Dedicated Server"
-- "Top-up Bonus"
+- "Dedicated Servers"
+- "Top-up Promotions"
 description: "Zenlayer Black Friday: top up $100 for $150 balance and new accounts get $25 back on their first order; term discounts on dedicated bare metal and a separate 40% off S-series offer. These are dedicated servers, not VPS."
 price: "Top up $100, get $150"
 expires: "2026-12-02"

@@ -148,12 +148,7 @@ function languageLinks(page, path) {
     for (const [zh, english] of Object.entries(taxonomyNames)) {
       const from = en ? english.replace(/ /g, '-') : zh.replace(/\//g, '-');
       const to = en ? zh.replace(/\//g, '-') : english.replace(/ /g, '-');
-      if (!other.includes(`tags/${from}/`)) continue;
-      // Several Chinese aliases can share an English tag. Keep the first
-      // pairing reciprocal; aliases use the usual missing-translation fallback.
-      const primary = Object.keys(taxonomyNames).find(key => taxonomyNames[key] === english);
-      other = !en && primary !== zh ? undefined : other.replace(`tags/${from}/`, `tags/${to}/`);
-      break;
+      if (other.includes(`tags/${from}/`)) other = other.replace(`tags/${from}/`, `tags/${to}/`);
     }
   }
   const missing = other == null;

@@ -6,11 +6,11 @@ translation_key: "raksmart/2026-11-04-double11-black-friday-dual-isp-dia-vps"
 categories:
 - raksmart
 tags:
-- "双11"
+- "双十一"
 - "黑五"
 - "双ISP"
 - "美国VPS"
-- "独立服务器"
+- "独服"
 description: "RakSmart 双11黑五硅谷双ISP DIA VPS 官网 7 折 $3.87/月起;独立服务器优惠价来自商家 NodeSeek 公告。充值膨胀金最高 $355,充值截止北京时间 11 月 10 日。"
 price: "$3.87/月起"
 location: "美国硅谷"
