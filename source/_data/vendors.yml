@@ -98,3 +98,18 @@ raksmart:
   website: "https://www.raksmart.com"
   intro_zh: "RakSmart 是一家在硅谷设有数据中心的美国主机服务商,提供 VPS、裸金属云与独立服务器。"
   intro_en: "RakSmart is a US hosting provider with data centers in Silicon Valley, offering VPS, bare metal cloud and dedicated servers."
+bgpnetwork:
+  name: "BGP Network"
+  website: "https://bgp.sa"
+  intro_zh: "BGP Network(bgp.sa, AS214329)提供美国等地 IP Transit / BGP VPS 等网络服务。"
+  intro_en: "BGP Network (bgp.sa, AS214329) offers IP transit and BGP-enabled VPS services."
+xhosts:
+  name: "xHosts"
+  website: "https://xhosts.uk/"
+  intro_zh: "xHosts UK(xhosts.uk)是一家英国主机商,提供英国 VPS、独服与虚拟主机。"
+  intro_en: "xHosts UK (xhosts.uk) is a UK provider of VPS, dedicated servers and web hosting."
+torchbyte:
+  name: "Torchbyte"
+  website: "https://torchbyte.com/"
+  intro_zh: "Torchbyte(torchbyte.com, AS215362)是罗马尼亚布加勒斯特主机商,提供游戏服、KVM VPS与独服。"
+  intro_en: "Torchbyte (torchbyte.com, AS215362) is a Bucharest, Romania host offering game servers, KVM VPS and dedicated servers."
