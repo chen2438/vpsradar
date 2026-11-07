@@ -84,6 +84,12 @@ vmshell:
   color: "#DF58ED"
 vpb:
   color: "#2ED5BE"
+xiyun:
+  name: "汐云"
+  website: "https://www.xiyun.io/"
+  color: "#39B6FF"
+  intro_zh: "汐云(xiyun.io)是主机服务商,提供香港等地 VPS。"
+  intro_en: "XiYun (xiyun.io) is a hosting provider offering VPS in Hong Kong and other locations."
 yecaoyun:
   color: "#FFB82E"
 yxvm:
