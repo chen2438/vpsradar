@@ -30,5 +30,8 @@
   "优惠码": "Coupon",
   "年付": "Yearly",
   "BGP": "BGP",
-  "BYOIP": "BYOIP"
+  "BYOIP": "BYOIP",
+  "芬兰VPS": "Finland VPS",
+  "意大利VPS": "Italy VPS",
+  "KVM": "KVM"
 }
