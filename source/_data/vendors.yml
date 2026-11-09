@@ -119,3 +119,28 @@ torchbyte:
   website: "https://torchbyte.com/"
   intro_zh: "Torchbyte(torchbyte.com, AS215362)是罗马尼亚布加勒斯特主机商,提供游戏服、KVM VPS与独服。"
   intro_en: "Torchbyte (torchbyte.com, AS215362) is a Bucharest, Romania host offering game servers, KVM VPS and dedicated servers."
+pawnhoster:
+  name: "PawnHoster"
+  website: "https://pawnhoster.com/"
+  intro_zh: "PawnHoster(pawnhoster.com)提供芬兰等地的 KVM/LXC VPS 与主机服务。"
+  intro_en: "PawnHoster (pawnhoster.com) offers KVM/LXC VPS and hosting services, including Finland."
+bytehosty:
+  name: "ByteHosty"
+  website: "https://bytehosty.com/"
+  intro_zh: "ByteHosty(bytehosty.com, AS203446)提供美国等地的 KVM VPS。"
+  intro_en: "ByteHosty (bytehosty.com, AS203446) offers KVM VPS services in the United States and other locations."
+xeniahosting:
+  name: "XeniaHosting"
+  website: "https://xeniahosting.com/"
+  intro_zh: "XeniaHosting(xeniahosting.com, AS213791)是意大利等地的主机商,提供 VPS Eco 等云服务器。"
+  intro_en: "XeniaHosting (xeniahosting.com, AS213791) is a hosting provider offering VPS Eco and other cloud servers in Italy and elsewhere."
+kainode:
+  name: "Kainode"
+  website: "https://kainode.com/"
+  intro_zh: "Kainode(kainode.com, AS200257)提供新加坡等地的 KVM VPS,运营方为 UserDepth LLC。"
+  intro_en: "Kainode (kainode.com, AS200257) offers Singapore KVM VPS; it is operated by UserDepth LLC."
+servury:
+  name: "Servury"
+  website: "https://servury.com/"
+  intro_zh: "Servury(servury.com)提供注重隐私的匿名 VPS / VDS,机房分布在多个地区。"
+  intro_en: "Servury (servury.com) offers privacy-focused anonymous VPS and VDS in multiple locations."

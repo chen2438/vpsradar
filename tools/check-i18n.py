@@ -55,7 +55,8 @@ for path in PUBLIC.rglob('*.html'):
     assert page.lang == ('en' if english else 'zh-CN'), rel
     canonical = [link['href'] for link in page.links if link.get('rel') == 'canonical']
     assert canonical == [ORIGIN + '/' + rel.removesuffix('index.html')], (rel, canonical)
-    alternates = {link['hreflang']: link['href'] for link in page.links if 'hreflang' in link}
+    alternates = {link['hreflang']: link['href'] for link in page.links
+                  if 'hreflang' in link and link.get('type') != 'application/atom+xml'}
     assert 'x-default' in alternates, rel
     assert alternates[page.lang] == canonical[0], rel
     for target in alternates.values():
