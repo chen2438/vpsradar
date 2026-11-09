@@ -144,3 +144,13 @@ servury:
   website: "https://servury.com/"
   intro_zh: "Servury(servury.com)提供注重隐私的匿名 VPS / VDS,机房分布在多个地区。"
   intro_en: "Servury (servury.com) offers privacy-focused anonymous VPS and VDS in multiple locations."
+netdynamics:
+  name: "NetDynamics"
+  website: "https://netdynamics24.com/"
+  intro_zh: "NetDynamics(netdynamics24.com)是美国新墨西哥州注册的 NetDynamics LLC,提供独立服务器、存储服务器与备份存储。"
+  intro_en: "NetDynamics (netdynamics24.com) is NetDynamics LLC, registered in New Mexico, USA, offering dedicated servers, storage servers and backup storage."
+cstserver:
+  name: "CSTserver"
+  website: "https://cstserver.com/"
+  intro_zh: "CSTserver(cstserver.com)主营独立服务器与裸金属,也提供云服务器,机房覆盖香港、美国、日本、德国等地。"
+  intro_en: "CSTserver (cstserver.com) focuses on dedicated and bare-metal servers and also sells cloud servers, with locations in Hong Kong, the US, Japan, Germany and more."
