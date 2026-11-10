@@ -154,3 +154,8 @@ cstserver:
   website: "https://cstserver.com/"
   intro_zh: "CSTserver(cstserver.com)主营独立服务器与裸金属,也提供云服务器,机房覆盖香港、美国、日本、德国等地。"
   intro_en: "CSTserver (cstserver.com) focuses on dedicated and bare-metal servers and also sells cloud servers, with locations in Hong Kong, the US, Japan, Germany and more."
+paradisehosting:
+  name: "Paradise Hosting"
+  website: "https://paradisehosting.xyz/"
+  intro_zh: "Paradise Hosting(paradisehosting.xyz)是 2026 年成立、在美国密歇根州注册的 Paradise Hosting LLC,在纽约州水牛城自有服务器,提供 VPS、独立服务器、托管与游戏服务器。"
+  intro_en: "Paradise Hosting (paradisehosting.xyz) is Paradise Hosting LLC, a Michigan-registered company founded in 2026 that runs its own servers in Buffalo, New York, offering VPS, dedicated servers, colocation and game servers."
