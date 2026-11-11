@@ -159,3 +159,18 @@ paradisehosting:
   website: "https://paradisehosting.xyz/"
   intro_zh: "Paradise Hosting(paradisehosting.xyz)是 2026 年成立、在美国密歇根州注册的 Paradise Hosting LLC,在纽约州水牛城自有服务器,提供 VPS、独立服务器、托管与游戏服务器。"
   intro_en: "Paradise Hosting (paradisehosting.xyz) is Paradise Hosting LLC, a Michigan-registered company founded in 2026 that runs its own servers in Buffalo, New York, offering VPS, dedicated servers, colocation and game servers."
+felware:
+  name: "Felware"
+  website: "https://felware.net/"
+  intro_zh: "Felware(felware.net,Felware LLC)在美国威斯康星州麦迪逊运营自有机房,专注独立服务器(裸金属)与托管业务。"
+  intro_en: "Felware (felware.net, Felware LLC) runs its own data center in Madison, Wisconsin, USA, focusing on bare-metal dedicated servers and colocation."
+isvoro:
+  name: "Isvoro"
+  website: "https://isvoro.com/"
+  intro_zh: "Isvoro(isvoro.com)是云主机平台,提供香港、日本、美国洛杉矶、德国等多地区 VPS 与独立服务器,付款后自动开通。"
+  intro_en: "Isvoro (isvoro.com) is a cloud hosting platform offering VPS and dedicated servers in Hong Kong, Japan, Los Angeles, Germany and other regions, with automatic provisioning after payment."
+smokyhosts:
+  name: "SmokyHosts"
+  website: "https://smokyhosts.com/"
+  intro_zh: "SmokyHosts(smokyhosts.com)是印度注册的 IT 服务公司,2004 年起提供虚拟主机、经销商主机与 VPS,VPS 机房覆盖美国堪萨斯城、水牛城、洛杉矶等地。"
+  intro_en: "SmokyHosts (smokyhosts.com) is an India-registered IT services company that has offered web hosting, reseller hosting and VPS since 2004, with VPS locations including Kansas City, Buffalo and Los Angeles in the US."
