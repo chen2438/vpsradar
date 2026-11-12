@@ -119,7 +119,8 @@ for lang, path in [('zh-CN', 'atom.xml'), ('en', 'en/atom.xml')]:
         for category in entry.findall('a:category', NS):
             scheme = category.attrib['scheme']
             term_counts[scheme] = term_counts.get(scheme, 0) + 1
-        title = entry.findtext('a:title', namespaces=NS)
+        # CDATA titles (e.g. containing &) may have XML formatting whitespace.
+        title = entry.findtext('a:title', namespaces=NS).strip()
         expected_lastmods[url] = updates[title]
         members[url] = (dates[title], updates[title])
         for category in entry.findall('a:category', NS):
