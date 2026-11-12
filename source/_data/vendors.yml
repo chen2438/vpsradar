@@ -174,3 +174,8 @@ smokyhosts:
   website: "https://smokyhosts.com/"
   intro_zh: "SmokyHosts(smokyhosts.com)是印度注册的 IT 服务公司,2004 年起提供虚拟主机、经销商主机与 VPS,VPS 机房覆盖美国堪萨斯城、水牛城、洛杉矶等地。"
   intro_en: "SmokyHosts (smokyhosts.com) is an India-registered IT services company that has offered web hosting, reseller hosting and VPS since 2004, with VPS locations including Kansas City, Buffalo and Los Angeles in the US."
+pqs:
+  name: "PQS"
+  website: "https://www.pqs.pw/"
+  intro_zh: "PQS(pqs.pw)主营台湾原生 IP VDS(台北、彰化 HiNet 商宽/家宽),另有日本 CN2、香港等产品,主打不限流量与流媒体/AI 解锁。"
+  intro_en: "PQS (pqs.pw) focuses on Taiwan native-IP VDS (Taipei, Changhua HiNet business/residential lines) plus Japan CN2 and Hong Kong products, emphasizing unmetered traffic and streaming/AI unlocking."
