@@ -179,3 +179,13 @@ pqs:
   website: "https://www.pqs.pw/"
   intro_zh: "PQS(pqs.pw)主营台湾原生 IP VDS(台北、彰化 HiNet 商宽/家宽),另有日本 CN2、香港等产品,主打不限流量与流媒体/AI 解锁。"
   intro_en: "PQS (pqs.pw) focuses on Taiwan native-IP VDS (Taipei, Changhua HiNet business/residential lines) plus Japan CN2 and Hong Kong products, emphasizing unmetered traffic and streaming/AI unlocking."
+prepaid-host:
+  name: "Prepaid-Host"
+  website: "https://prepaid-host.com/"
+  intro_zh: "Prepaid-Host(prepaid-host.com)是德国法兰克福的预付费主机商,提供 AMD EPYC KVM 根服务器、存储服务器、S3 对象存储、网站与游戏服务器托管,上游 SYNLINQ(AS44486),全线含 DDoS 防护。"
+  intro_en: "Prepaid-Host (prepaid-host.com) is a Frankfurt, Germany based prepaid host offering AMD EPYC KVM root servers, storage servers, S3 object storage, web hosting and game servers, with SYNLINQ (AS44486) uplinks and DDoS protection included."
+st-hosting:
+  name: "ST-Hosting"
+  website: "https://www.st-hosting.com/"
+  intro_zh: "ST-Hosting 是德国 NUXOA GmbH 旗下面向个人用户的品牌,在法兰克福、纽伦堡提供 LXC/KVM VPS、独立服务器、虚拟主机与域名。"
+  intro_en: "ST-Hosting is the consumer brand of Germany's NUXOA GmbH, offering LXC/KVM VPS, dedicated servers, web hosting and domains in Frankfurt and Nuremberg."
