@@ -189,3 +189,13 @@ st-hosting:
   website: "https://www.st-hosting.com/"
   intro_zh: "ST-Hosting 是德国 NUXOA GmbH 旗下面向个人用户的品牌,在法兰克福、纽伦堡提供 LXC/KVM VPS、独立服务器、虚拟主机与域名。"
   intro_en: "ST-Hosting is the consumer brand of Germany's NUXOA GmbH, offering LXC/KVM VPS, dedicated servers, web hosting and domains in Frankfurt and Nuremberg."
+fourplex:
+  name: "Fourplex"
+  website: "https://www.fourplex.net/"
+  intro_zh: "Fourplex Telecom LLC 是美国纽约的主机商,提供基于 AMD Ryzen 的 KVM VPS 与存储 VPS,机房位于 Metanet NYC,网络为 10Gbps,上游 Cogent/GTT。"
+  intro_en: "Fourplex Telecom LLC is a New York based provider offering AMD Ryzen KVM VPS and storage VPS in the Metanet NYC facility, with a 10Gbps network and Cogent/GTT upstream."
+vpspioneer:
+  name: "VPSPioneer"
+  website: "https://vpspioneer.com/"
+  intro_zh: "VPSPioneer 由英国注册公司 VPSPIONEER LTD(No. 16893138)运营,在法国和土耳其布尔萨提供 KVM VPS 与虚拟主机,含每日快照与 30 天退款。"
+  intro_en: "VPSPioneer is operated by VPSPIONEER LTD (England and Wales No. 16893138) and offers KVM VPS and web hosting in France and Bursa, Türkiye, with daily snapshots and a 30-day money-back guarantee."
