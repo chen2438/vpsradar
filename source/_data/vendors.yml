@@ -12,6 +12,10 @@ calibernode:
   color: "#DF58ED"
 centrixnodes:
   color: "#28D6EC"
+  name: "CentrixNodes"
+  website: "https://centrixnodes.net/"
+  intro_zh: "CentrixNodes 是美国纽约州布法罗的主机商,提供 Intel Xeon 与 AMD Ryzen VPS,以及独立服务器、游戏服务器与机柜托管。"
+  intro_en: "CentrixNodes is a Buffalo, New York provider offering Intel Xeon and AMD Ryzen VPS, as well as dedicated servers, game servers and colocation."
 charityhost:
   color: "#F5E642"
 dedirock:
