@@ -38,6 +38,12 @@ infrawire:
   color: "#648CFF"
 kuxueyun:
   color: "#FFB82E"
+layerone:
+  color: "#26CD91"
+  name: "LayerOne"
+  website: "https://layeronecloud.com/"
+  intro_zh: "LayerOne 是美国佛罗里达州坦帕的主机商，提供 KVM VPS。"
+  intro_en: "LayerOne is a Tampa, Florida provider offering KVM VPS."
 lisahost:
   color: "#60D653"
 miaomiaomoe:
